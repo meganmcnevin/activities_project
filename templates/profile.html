@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Profile Page{% endblock %}
+
+{% block body%}
+
+
+<h2>{{name}}'s Profile Page</h2>
+<div>
+    <p>Your account details are below:</p>
+    <table>
+        <tr>
+            <td>Username:</td>
+            <td>{{ user.first_name }}</td>
+        </tr>
+        <tr>Your Favorite Activities</tr>
+            {% for i in user.activities %} 
+                <li>{{i.activity_name}}</li>
+                <a href= "{{url_for('show_activity', activity_id = i.activity_id)}}">Test</a>
+                
+            {% endfor %}
+        <tr>
+            <td>Email:</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.user_id }}</td>
+        </tr>
+    </table>
+
+
+<p> Your Children:</p>
+    {% for i in user.children%}
+        <div>{{i.child_name}}
+        {% for l in i.interests %}
+        <li>{{l.interest_name}}</li>
+        {% endfor %}
+        </br>
+        {% endfor %}
+        </br>
+        </div>
+ 
+
+    <a class="nav-link" href="{{ url_for('add_child') }}">Add a child</a></li>
+</div>
+{% endblock %}

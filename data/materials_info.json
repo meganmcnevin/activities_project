@@ -1,0 +1,357 @@
+[
+	{
+		"material_name": "construction paper",
+		"material_cost": 4.99,
+		"material_url": "https://www.target.com/p/crayola-240-sheets-construction-paper-12-assorted-colors/-/a-16693485#lnk=sametab"
+	},
+	{
+		"material_name": "cardboard",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "crayons",
+		"material_cost": 2.99,
+		"material_url": "https://www.target.com/p/crayola-64ct-classic-crayons-with-sharpener/-/a-14151825#lnk=sametab"
+	},
+	{
+		"material_name": "markers",
+		"material_cost": 3.79,
+		"material_url": "https://www.target.com/p/crayola-10ct-washable-broad-line-markers-classic-colors/-/a-15225908#lnk=sametab"
+	},
+	{
+		"material_name": "colored pencils",
+		"material_cost": 2.99,
+		"material_url": "https://www.target.com/p/crayola-24ct-pre-sharpened-colored-pencils/-/a-14152250#lnk=sametab"
+	},
+	{
+		"material_name": "chalk",
+		"material_cost": 2.49,
+		"material_url": "https://www.target.com/p/crayola-24ct-washable-sidewalk-chalk-bold-colors/-/a-14363796#lnk=sametab"
+	},
+	{
+		"material_name": "watercolor paint",
+		"material_cost": 3.99,
+		"material_url": "https://www.target.com/p/crayola-24ct-watercolor-paints-with-brush/-/a-14152240#lnk=sametab"
+	},
+	{
+		"material_name": "washable paint",
+		"material_cost": 4.99,
+		"material_url": "https://www.target.com/p/crayola-10ct-2oz-washable-kids-39-paint-classic-colors/-/a-14151839#lnk=sametab"
+	},
+	{
+		"material_name": "acrylic paint",
+		"material_cost": 1.99,
+		"material_url": "https://www.target.com/p/2oz-satin-acrylic-paint-hand-made-modern/-/a-17346462?preselect=16748266#lnk=sametab"
+	},
+	{
+		"material_name": "twine",
+		"material_cost": 2.99,
+		"material_url": "https://www.target.com/p/100yd-craft-twine-hand-made-modern-174/-/a-53464494?preselect=53085389#lnk=sametab"
+	},
+	{
+		"material_name": "yarn",
+		"material_cost": 3.99,
+		"material_url": "https://www.target.com/p/219yd-worsted-yarn-hand-made-modern/-/a-54482744?preselect=75664077#lnk=sametab"
+	},
+	{
+		"material_name": "felt",
+		"material_cost": 8.49,
+		"material_url": "https://www.michaels.com/9x12-felt-sheet-pack-by-creatology/10224639.html"
+	},
+	{
+		"material_name": "fabric",
+		"material_cost": 6.99,
+		"material_url": "https://www.michaels.com/fabrics/cotton-and-cotton-blend-fabric/20000927"
+	},
+	{
+		"material_name": "thread",
+		"material_cost": 7.99,
+		"material_url": "https://www.target.com/p/18ct-cotton-thread-set-hand-made-modern-174/-/a-16781485#lnk=sametab"
+	},
+	{
+		"material_name": "playdough",
+		"material_cost": 4.99,
+		"material_url": "https://www.target.com/p/play-doh-rainbow-starter-pack/-/a-11244196#lnk=sametab"
+	},
+	{
+		"material_name": "popsicle sticks",
+		"material_cost": 1.79,
+		"material_url": "https://www.target.com/p/kid-made-modern-100ct-craft-sticks/-/a-75573661#lnk=sametab"
+	},
+	{
+		"material_name": "clay",
+		"material_cost": 5.29,
+		"material_url": "https://www.target.com/p/crayola-2-5lb-air-dry-clay-white/-/a-14151841#lnk=sametab"
+	},
+	{
+		"material_name": "string",
+		"material_cost": 7.99,
+		"material_url": "https://www.michaels.com/white-twine-spool-by-recollections/10401505.html"
+	},
+	{
+		"material_name": "beads",
+		"material_cost": 2.99,
+		"material_url": "https://www.target.com/p/kid-made-modern-250ct-pony-beads/-/a-75573658#lnk=sametab"
+	},
+	{
+		"material_name": "glitter",
+		"material_cost": 3.99,
+		"material_url": "https://www.target.com/p/advantus-174-glitter-2-5oz/-/a-52428338?preselect=51602964#lnk=sametab"
+	},
+	{
+		"material_name": "pom poms",
+		"material_cost": 1.99,
+		"material_url": "https://www.target.com/p/kid-made-modern-50ct-mini-pom-poms/-/a-75573642#lnk=sametab"
+	},
+	{
+		"material_name": "feathers",
+		"material_cost": 2.99,
+		"material_url": "https://www.michaels.com/creatology-feathers-assorted-marabou/10071426.html"
+	},
+	{
+		"material_name": "cotton balls",
+		"material_cost": 1.89,
+		"material_url": "https://www.target.com/p/jumbo-cotton-balls-200ct-up-38-up-8482/-/a-11031092#lnk=sametab"
+	},
+	{
+		"material_name": "googly eyes",
+		"material_cost": 2.49,
+		"material_url": "https://www.target.com/p/kid-made-modern-52ct-self-stick-googly-eyes/-/a-75573652#lnk=sametab"
+	},
+	{
+		"material_name": "craft foam",
+		"material_cost": 8.99,
+		"material_url": "https://www.michaels.com/primary-foam-sheets-value-pack-by-creatology/m10104244.html?dwvar_m10104244_size=12%22%20x%2012%22&dwvar_m10104244_color=primary"
+	},
+	{
+		"material_name": "buttons",
+		"material_cost": 5.49,
+		"material_url": "https://www.michaels.com/dress-it-up-craft-buttons-brights/10121531.html"
+	},
+	{
+		"material_name": "white glue",
+		"material_cost": 1.49,
+		"material_url": "https://www.target.com/p/elmer-39-s-washable-school-glue-7-625oz/-/a-17089133#lnk=sametab"
+	},
+	{
+		"material_name": "pipe cleaners",
+		"material_cost": 2.99,
+		"material_url": "https://www.target.com/p/kid-made-modern-75ct-rainbow-fuzzy-sticks/-/a-75573667#lnk=sametab"
+	},
+	{
+		"material_name": "mod podge",
+		"material_cost": 4.99,
+		"material_url": "https://www.target.com/p/mod-podge-craft-glue/-/a-52589132?preselect=18837417#lnk=sametab"
+	},
+	{
+		"material_name": "rubber cement",
+		"material_cost": 1.99,
+		"material_url": "https://www.target.com/p/elmer-39-s-4oz-rubber-cement/-/a-17088978#lnk=sametab"
+	},
+	{
+		"material_name": "scissors",
+		"material_cost": 2.29,
+		"material_url": "https://www.target.com/p/2ct-kids-39-scissors-blunt-tip-pink-blue-up-38-up-8482/-/a-17089138#lnk=sametab"
+	},
+	{
+		"material_name": "paint brushes",
+		"material_cost": 2.99,
+		"material_url": "https://www.target.com/p/crayola-5ct-paint-brush-variety-pack/-/a-14548497#lnk=sametab"
+	},
+	{
+		"material_name": "foam brushes",
+		"material_cost": 1.99,
+		"material_url": "https://www.target.com/p/master-3pc-1-34-3-34-foam-paint-brush-set/-/a-52080892#lnk=sametab"
+	},
+	{
+		"material_name": "ruler",
+		"material_cost": 0.25,
+		"material_url": "https://www.target.com/p/12-34-wood-ruler-up-38-up-8482/-/a-16637275#lnk=sametab"
+	},
+	{
+		"material_name": "ink pad",
+		"material_cost": 4.97,
+		"material_url": "https://www.michaels.com/bright-washable-ink-pads-by-craft-smart/10610964.html"
+	},
+	{
+		"material_name": "dye",
+		"material_cost": 2.99,
+		"material_url": "https://www.target.com/p/rit-8oz-all-purpose-dye-denim-blue/-/a-75573468#lnk=sametab"
+	},
+	{
+		"material_name": "copy paper",
+		"material_cost": 3.99,
+		"material_url": "https://www.target.com/p/500ct-letter-printer-paper-white-up-38-up-8482/-/a-75001545#lnk=sametab"
+	},
+	{
+		"material_name": "roll paper",
+		"material_cost": 7.99,
+		"material_url": "https://www.target.com/p/elmer-39-s-boardmate-banner-paper-75-39-x-25-34/-/a-15058543#lnk=sametab"
+	},
+	{
+		"material_name": "card stock",
+		"material_cost": 4.99,
+		"material_url": "https://www.target.com/p/astrobrights-cardstock-8-5-34-x-11-34-65lb-50ct-primary/-/a-13317678#lnk=sametab"
+	},
+	{
+		"material_name": "wax paper",
+		"material_cost": 1.59,
+		"material_url": "https://www.target.com/p/reynolds-cut-rite-wax-paper-75-sq-ft/-/a-14736821#lnk=sametab"
+	},
+	{
+		"material_name": "colored tissue paper",
+		"material_cost": 3.5,
+		"material_url": "https://www.target.com/p/20ct-banded-tissue-paper-spritz-8482/-/a-78052862#lnk=sametab"
+	},
+	{
+		"material_name": "coffee filters",
+		"material_cost": 1.49,
+		"material_url": "https://www.target.com/p/white-coffee-filters-200ct-market-pantry-8482/-/a-52995742#lnk=sametab"
+	},
+	{
+		"material_name": "paper towels",
+		"material_cost": 1.99,
+		"material_url": ""
+	},
+	{
+		"material_name": "clear contact paper",
+		"material_cost": 5.99,
+		"material_url": "https://www.target.com/p/con-tact-brand-creative-covering-multipurpose-shelf-liner-adhesive-clear-18-34-x-20-39/-/a-11172260#lnk=sametab"
+	},
+	{
+		"material_name": "freezer paper",
+		"material_cost": 3.69,
+		"material_url": "https://www.target.com/p/reynolds-kitchens-freezer-paper-75-sq-ft/-/a-16666140#lnk=sametab"
+	},
+	{
+		"material_name": "brown paper bags",
+		"material_cost": 1.99,
+		"material_url": "https://www.target.com/p/lunch-storage-bags-100ct-smartly-8482/-/a-75557229#lnk=sametab"
+	},
+	{
+		"material_name": "newspaper",
+		"material_cost": 2,
+		"material_url": ""
+	},
+	{
+		"material_name": "crepe paper",
+		"material_cost": 2.99,
+		"material_url": "https://www.target.com/p/blue-crepe-streamer-spritz-8482/-/a-15705507#lnk=sametab"
+	},
+	{
+		"material_name": "cardboard rolls",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "magazines",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "egg cartons",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "milk cartons",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "empty boxes",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "clean cans & jars",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "small plastic containers",
+		"material_cost": 3.99,
+		"material_url": ""
+	},
+	{
+		"material_name": "bubble wrap",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "iron",
+		"material_cost": 14.99,
+		"material_url": ""
+	},
+	{
+		"material_name": "leaves",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "sticks",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "small rocks",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "acorns",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "pine cones",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "flowers",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "seeds & seed pods",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "nuts",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "newspaper",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "apron or large shirt",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "old sheet(s)",
+		"material_cost": 0,
+		"material_url": ""
+	},
+	{
+		"material_name": "rubber bands",
+		"material_cost": 2.19,
+		"material_url": "https://www.target.com/p/7-4oz-rubber-bands-assorted-sizes-u-brands/-/a-16603894#lnk=sametab"
+	},
+	{
+		"material_name": "plastic storage bags",
+		"material_cost": 5.69,
+		"material_url": "https://www.target.com/p/quart-storage-bags-80ct-up-38-up-8482/-/a-14730756#lnk=sametab"
+	},
+	{
+		"material_name": "food coloring",
+		"material_cost": 3.69,
+		"material_url": "https://www.target.com/p/mccormick-4ct-assorted-food-color-and-egg-dye-1oz/-/a-13353207#lnk=sametab"
+	}
+]

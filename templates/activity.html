@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ activity.activity_name }} - Details{% endblock %}
+
+{% block body %}
+<h1>{{ activity.activity_name }}</h1>
+
+</style>
+
+	
+</div>
+
+<p>
+    {% for i in activity.activity_description.values() %}
+        {% for j,k in i.items() %}
+        {% if j == "photo" %}
+            <img src="{{k}}">
+        {% else %}
+            <p>{{k}}</p>
+        {% endif %}
+    {% endfor %}
+    {% endfor %}
+
+</p>
+<div>
+    <h1>Comment on {{ activity.activity_name }}</h1>
+
+    <div>
+        <form action='/activity/add_favorite/{{activity.activity_id}}' id="fav" method='post'>
+            <input type="submit" value="Favorite" >
+        </form>
+
+<h1>Comment on {{ activity.activity_name }}</h1>
+
+<div>
+    <form action='/activity/add_comment/{{activity.activity_id}}' method='post'>
+        <textarea rows="10" cols="100" name="comment">Comment</textarea>
+        <select id="rating" name="rating">
+            <option value=1 >1 </option>
+            <option value=2 >2 </option>
+            <option value=3 >3 </option>
+            <option value=4 >4 </option>
+            <option value=5 >5 </option>
+        </select>
+        <input type="submit" value="Submit" >
+        </form>
+        
+        
+        </div>
+
+
+</div>
+</div>
+<p> Comments:</p>
+    {% for i in activity.comment %}
+        <div>{{i.comment_text}}
+    {% endfor %}
+        </br>
+        </div>
+
+    
+
+{% endblock %}
+

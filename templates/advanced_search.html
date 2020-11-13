@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}New User Registration{% endblock %}
+
+{% block body%}
+<doctype html="">
+  <title>Filter</title>
+
+  {% for i in results%}
+  <li>{{i.activity_name}}</li>
+  <a href= "{{url_for('show_activity', activity_id = i.activity_id)}}">Link</a>
+  <li>{{i.activity_description['overview']['Overview']}}</li>
+  {% endfor %}
+
+<form action='/filter' method='GET'>
+  <input type='checkbox' name=effort_rating[] value="Quick and easy">Quick and easy</br>
+  <input type='checkbox' name=effort_rating[] value="A little involved">A little involved</br>
+  <input type='checkbox' name=effort_rating[] value="Somwhat time intensive">Somwhat time intensive </br>
+  <input type='checkbox' name=effort_rating[] value="Maximum effort required">Maximum effort require</br>
+
+    <input type ='number' name='min_age' min='0' max="99"> Minimum Age </br>
+    <input type ='number' name='max_age'min='0' max="99"> Maximum Age </br>
+    <input type ='number' name='min_cost' min='0' max="99"> Minimum Cost </br>
+    <input type ='number' name='max_cost' min='0' max="99"> Maximum Cost </br>
+<div>
+<h3>Materials:</h3>
+{% for material in materials %}
+<input type='checkbox' name='materials[]' value={{material.material_id}}> {{material.material_name}} <br/>
+{% endfor %}
+</div>
+<div>
+<h3>Interests:</h3>
+    {% for interest in interests %}
+    <input type='checkbox' name='interests[]' value={{interest.interest_id}}> {{interest.interest_name}} <br/>
+    {% endfor %}
+    </div>
+<div>
+    <h3>Time of the Year:</h3>
+    {% for time in time_periods %}
+    <input type='checkbox' name='time_periods[]' value={{time.time_period_id}}> {{time.time_period_name}} <br/>
+    {% endfor %}
+    </div>
+  <p><input type="submit" value="Search">
+</p></form>
+
+{% endblock %}
+

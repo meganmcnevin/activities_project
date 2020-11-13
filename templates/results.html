@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}New User Registration{% endblock %}
+
+{% block body%}
+<doctype html="">
+  <title>Search Results</title>
+  {{ table }}
+
+  <h2>{{name}}'s Profile Page</h2>
+  <div>
+    
+      {% for i in results%}
+      <li>{{i.activity_name}}</li>
+      <a href= "{{url_for('show_activity', activity_id = i.activity_id)}}">Link</a>
+      <li>{{i.activity_description['overview']['Overview']}}</li>
+      {% endfor %}
+      
+        </tr>
+    </table>
+  </doctype>
+    {% endblock %}

@@ -1,0 +1,92 @@
+[{
+    "activity_name":"Best Activity Ever", 
+    "min_age":1, 
+    "max_age":5, 
+    "min_cost":5, 
+    "max_cost":10, 
+    "location":"indoors", 
+    "effort_rating": "A little involved", 
+    "activity_description":{
+        "overview": {
+            "Overview":"Really fun activity!",
+            "photo":"https://www.drodd.com/images15/1-12.jpg"
+        },
+        "step_1": {
+            "Step 1":"text for step 1 ", 
+            "photo":"https://www.drodd.com/images15/1-12.jpg"
+        },
+        "step_2": {
+            "Step 2":"text for step 2", 
+            "photo":"https://www.driveworksxpresscertification.com/img/Step2.png"
+        }
+    }
+},
+{
+    "activity_name":"Second Best Activity Ever", 
+    "min_age":5, 
+    "max_age":10, 
+    "min_cost":1, 
+    "max_cost":15, 
+    "location":"outdoors", 
+    "effort_rating": "A little involved", 
+    "activity_description":{
+        "overview": {
+            "Overview":"Really fun activity!",
+            "photo":"https://www.drodd.com/images15/1-12.jpg"
+        },
+        "step_1": {
+            "Step 1":"text for step 1 ", 
+            "photo":"https://www.drodd.com/images15/1-12.jpg"
+        },
+        "step_2": {
+            "Step 2":"text for step 2", 
+            "photo":"https://www.driveworksxpresscertification.com/img/Step2.png"
+        }
+    }
+}, 
+{
+    "activity_name":"Third Best Activity Ever", 
+    "min_age":5, 
+    "max_age":10, 
+    "min_cost":1, 
+    "max_cost":15, 
+    "location":"indoors", 
+    "effort_rating": "A little involved", 
+    "activity_description":{
+        "overview": {
+            "Overview":"Really fun activity!",
+            "photo":"https://www.drodd.com/images15/1-12.jpg"
+        },
+        "step_1": {
+            "Step 1":"text for step 1 ", 
+            "photo":"https://www.drodd.com/images15/1-12.jpg"
+        },
+        "step_2": {
+            "Step 2":"text for step 2", 
+            "photo":"https://www.driveworksxpresscertification.com/img/Step2.png"
+        }
+    }
+},
+{
+    "activity_name":"Third Best Activity Ever", 
+    "min_age":10, 
+    "max_age":13, 
+    "min_cost":15, 
+    "max_cost":20, 
+    "location":"outdoors", 
+    "effort_rating": "A little involved", 
+    "activity_description":{
+        "overview": {
+            "Overview":"Really fun activity!",
+            "photo":"https://www.drodd.com/images15/1-12.jpg"
+        },
+        "step_1": {
+            "Step 1":"text for step 1 ", 
+            "photo":"https://www.drodd.com/images15/1-12.jpg"
+        },
+        "step_2": {
+            "Step 2":"text for step 2", 
+            "photo":"https://www.driveworksxpresscertification.com/img/Step2.png"
+        }
+    }       
+}]
