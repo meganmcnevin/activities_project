@@ -1,18 +1,47 @@
 {% extends 'base.html' %}
-{% block title %}Search{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block body%}
-<h2>Home Page</h2>
-<p>Welcome back, {{ name }}!</p>
+<body id="main">
+  <div class="container" id="search-container"> 
+    <h2>Search for Activities</h2>
+    <p>Welcome back, {{ name }}!</p>
+    <div class="form-row">
+      <div class="col-11">
+        <form action='/basic_search'>
+          <input type="text" class="form-control" name="basic_search">
+        </div>
+        <div class="col-auto">
+      <input class="btn btn-info" type="submit" value="Search">
+    </form>
+    </div>
+    </div>
+  </div>
 
-{% from "_formhelpers.html" import render_field %}
-<form method="post">
-  <dl>
-    {{ render_field(form.select) }}
-    <p>
-    {{ render_field(form.search) }}
-  </p></dl>
+<div class="container" id="featured-container">
+  <h4>Recently Added Activities</h4>
+<div class="card-deck">
+  <div class="card-columns">
+    {% for activity in activities %}
+  <div class="card">
+     <div class='card-header center'>
+     <a  href="{{url_for('show_activity', activity_id = activity.activity_id)}}">{{activity.activity_name}}</a>
+     </div>
+    <div class="card-body">
+      <img class='card-img-center' src="{{activity.activity_description['overview']['photo']}}"><br><br>
+      <small class="form-text text-muted float-right align-bottom">
+        Added on {{activity.timestamp.strftime('%m-%d-%Y')}}
+      </small>
+    </div>
+      </div>
+ 
+    {% endfor %}
+ </div>
 
-  <p><input type="submit" value="Search">
-  </p></form>
-  {% endblock %}
+    </div>
+  </div>
+
+
+{% endblock %}
+</body>
+

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}New Activity{% endblock %}
+
+{% block body%}
+<h1>Create A New Activity</h1>
+
+<form action='/add_activity' method='post'>
+    <label>Activity Name</label><br>
+    <input type ='text' name='activity_name'><br>
+    <label>Activity Overview</label><br>
+    <textarea rows="6" cols="60" name='overview'></textarea><br>
+    <label>Main Photo</label><br>
+    <input type ='text' name='overview_pic'><br>
+    <label>Step 1</label><br>
+    <textarea rows="6" cols="60"  name='step_1'></textarea><br>
+    <label>Step 1 Photo</label><br>
+    <input type ='text' name='photo_1'>  <br>
+    <label>Step 2</label><br>
+    <textarea rows="6" cols="60"  name='step_2'></textarea><br>
+    <label>Step 2 Photo</label><br>
+    <input type ='text' name='photo_2'>  <br>
+    <label>Step 3</label><br>
+    <textarea rows="6" cols="60"  name='step_3'></textarea><br>
+    <label>Step 3 Photo</label><br>
+    <input type ='text' name='photo_3'><br>
+    <label>Step 4</label><br>
+    <textarea rows="6" cols="60"  name='step_4'></textarea><br>
+    <label>Step 4 Photo</label><br>
+    <input type ='text' name='photo_4'><br>
+    <label> Step 5 </label><br>
+    <textarea rows="6" cols="60"  name='step_5'></textarea><br>
+    <label>Step 5 Photo</label><br>
+    <input type ='text' name='photo_5'> <br>
+    <label>Step 6</label><br>
+    <textarea rows="6" cols="60"  name='step_6'></textarea><br>
+    <label>Step 6 Photo</label><br>
+    <input type ='text' name='photo_6'> <br>
+    <label>Keywords</label><br>
+    <textarea rows="6" cols="60" name='keywords'></textarea><br>
+
+    <label>Effort Rating</label><br>
+    <select id="rating" name="effort_rating">
+        <option value='Quick and easy' >Quick and easy </option>
+        <option value='A little involved' >A little involved </option>
+        <option value='Somwhat time intensive' >Somwhat time intensive </option>
+        <option value= 'Maximum effort required' >Maximum effort required </option>
+    </select><br>
+    <label>Location</label><br>
+    <select id="location" name="location">
+        <option value='indoors'>Indoors </option>
+        <option value='outdoors'>Outdoors</option>
+        <option value='indoors/outdoors'>Indoors and outdoors</option>
+    </select><br>
+    <label>Minimum Age </label><br>
+    <input type ='number' name='min_age'><br>
+    <label>Maximum Age</label><br>
+    <input type ='number' name='max_age'><br>
+    <label>Minimum Cost</label><br>
+    <input type ='number' name='min_cost'><br>
+    <label>Maximum Cost</label><br>
+    <input type ='number' name='max_cost'><br>
+
+<h5>Materials:</h5>
+{% for material in materials %}
+<input type='checkbox' name='materials[]' value={{material.material_id}}> {{material.material_name}} <br/>
+{% endfor %}
+
+<h5>Interests:</h5>
+    {% for interest in interests %}
+    <input type='checkbox' name='interests[]' value={{interest.interest_id}}> {{interest.interest_name}} <br/>
+    {% endfor %}
+
+<h5>Time of the Year:</h5>
+    {% for time_period in time_periods %}
+    <input type='checkbox' name='time_periods[]' value={{time_period.time_period_id}}> {{time_period.time_period_name}} <br/>
+    {% endfor %}
+
+    <input type='submit'>
+
+{% endblock %}

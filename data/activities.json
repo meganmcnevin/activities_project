@@ -1,14 +1,15 @@
 [{
     "activity_name":"Best Activity Ever", 
-    "min_age":1, 
-    "max_age":5, 
     "min_cost":5, 
     "max_cost":10, 
+    "min_age":1, 
+    "max_age":5, 
     "location":"indoors", 
     "effort_rating": "A little involved", 
+    "keywords": "location:indoors, effort_rating: A little involved, min_age:1,max_age:5, min_cost:5, max_cost:10" ,
     "activity_description":{
         "overview": {
-            "Overview":"Really fun activity!",
+            "Overview":"So fun you are going to barf",
             "photo":"https://www.drodd.com/images15/1-12.jpg"
         },
         "step_1": {
@@ -18,20 +19,38 @@
         "step_2": {
             "Step 2":"text for step 2", 
             "photo":"https://www.driveworksxpresscertification.com/img/Step2.png"
+        }, 
+        "step_3":{
+            "Step 3":"", 
+            "photo": ""
+        }, 
+        "step_4": {
+            "Step 4":"", 
+            "photo": ""
+        }, 
+        "step_5": {
+            "Step 5": "", 
+            "photo":  ""
+        }, 
+        "step_6": {
+            "Step 6":"", 
+            "photo": ""
         }
-    }
+    },
+    "timestamp": "2019-07-26T00:00:00"   
 },
 {
     "activity_name":"Second Best Activity Ever", 
-    "min_age":5, 
-    "max_age":10, 
     "min_cost":1, 
     "max_cost":15, 
+    "min_age":5, 
+    "max_age":10, 
     "location":"outdoors", 
-    "effort_rating": "A little involved", 
+    "effort_rating": "Maximum effort required", 
+    "keywords": "location:outdoors, effort_rating: Maximum effort required, min_age:5,max_age:10, min_cost:1, max_cost:15" ,
     "activity_description":{
         "overview": {
-            "Overview":"Really fun activity!",
+            "Overview":"So fun you are going to hurl",
             "photo":"https://www.drodd.com/images15/1-12.jpg"
         },
         "step_1": {
@@ -41,20 +60,38 @@
         "step_2": {
             "Step 2":"text for step 2", 
             "photo":"https://www.driveworksxpresscertification.com/img/Step2.png"
+        }, 
+        "step_3":{
+            "Step 3":"", 
+            "photo": ""
+        }, 
+        "step_4": {
+            "Step 4":"", 
+            "photo": ""
+        }, 
+        "step_5": {
+            "Step 5": "", 
+            "photo":  ""
+        }, 
+        "step_6": {
+            "Step 6":"", 
+            "photo": ""
         }
-    }
+    },
+    "timestamp": "2019-07-26T00:00:00"   
 }, 
 {
     "activity_name":"Third Best Activity Ever", 
-    "min_age":5, 
-    "max_age":10, 
-    "min_cost":1, 
+    "min_cost":12, 
     "max_cost":15, 
+    "min_age":4, 
+    "max_age":11, 
     "location":"indoors", 
-    "effort_rating": "A little involved", 
+    "effort_rating": "Quick and easy", 
+    "keywords": "location:indoors, effort_rating: Quick and easy, min_age:4, max_age:11, min_cost:2, max_cost:15" ,
     "activity_description":{
         "overview": {
-            "Overview":"Really fun activity!",
+            "Overview":"So fun you will pee a little",
             "photo":"https://www.drodd.com/images15/1-12.jpg"
         },
         "step_1": {
@@ -64,20 +101,38 @@
         "step_2": {
             "Step 2":"text for step 2", 
             "photo":"https://www.driveworksxpresscertification.com/img/Step2.png"
+        }, 
+        "step_3":{
+            "Step 3":"", 
+            "photo": ""
+        }, 
+        "step_4": {
+            "Step 4":"", 
+            "photo": ""
+        }, 
+        "step_5": {
+            "Step 5": "", 
+            "photo":  ""
+        }, 
+        "step_6": {
+            "Step 6":"", 
+            "photo": ""
         }
-    }
+    },
+    "timestamp": "2019-07-26T00:00:00"   
 },
 {
-    "activity_name":"Third Best Activity Ever", 
-    "min_age":10, 
-    "max_age":13, 
+    "activity_name":"Fourth Best Activity Ever", 
     "min_cost":15, 
     "max_cost":20, 
+    "min_age":10, 
+    "max_age":13, 
     "location":"outdoors", 
-    "effort_rating": "A little involved", 
+    "effort_rating": "Somewhat time intensive", 
+    "keywords": "location:outdoors, effort_rating: Somewhat time intensive, min_age:10,max_age:13, min_cost:15, max_cost:20",
     "activity_description":{
         "overview": {
-            "Overview":"Really fun activity!",
+            "Overview":"So fun you'll flip!",
             "photo":"https://www.drodd.com/images15/1-12.jpg"
         },
         "step_1": {
@@ -87,6 +142,23 @@
         "step_2": {
             "Step 2":"text for step 2", 
             "photo":"https://www.driveworksxpresscertification.com/img/Step2.png"
+        }, 
+        "step_3":{
+            "Step 3":"", 
+            "photo": ""
+        }, 
+        "step_4": {
+            "Step 4":"", 
+            "photo": ""
+        }, 
+        "step_5": {
+            "Step 5": "", 
+            "photo":  ""
+        }, 
+        "step_6": {
+            "Step 6":"", 
+            "photo": ""
         }
-    }       
+    },
+    "timestamp": "2019-07-26T00:00:00"
 }]

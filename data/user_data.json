@@ -1,4 +1,11 @@
-[
+[	{
+	"first_name": "Administrator",
+	"last_name": "Administrator",
+	"email": "Administrator",
+	"username": "admin",
+	"password": "admin",
+	"zipcode": "55404"
+	},
 	{
 		"first_name": "Dione",
 		"last_name": "Jouning",
@@ -225,10 +232,10 @@
 	},
 	{
 		"first_name": "Megan",
-		"last_name": "Hunter",
-		"email": "meganhunter@gmail.com",
-		"username": "MHunter",
+		"last_name": "McNevin",
+		"email": "meganmcnevin@test.com",
+		"username": "MMcNevin",
 		"password": "PeanutButterIsMyJam!",
-		"zipcode": "55446"
+		"zipcode": "55401"
 	}
 ]

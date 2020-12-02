@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block title %}Edit Activity{% endblock %}
+
+{% block body%}
+<h1>Edit {{activity.activity_name}}</h1>
+
+<div class="container">
+
+<form action='activity/edit_activity/{{activity.activity_id}}' method='post'>
+    <label>Activity Name</label><br>
+    <input type ='text' name='activity_name' value={{activity.activity_name}} > <br>
+    <label>Activity Overview</label><br>
+    <textarea rows="6" cols="60" name='overview'>{{activity.activity_description['overview']['Overview']}}</textarea><br>
+    <label>Main Photo</label><br>
+    <input type ='text' name='overview_pic'><img class="edit-img" src="{{activity.activity_description['overview']['photo']}}"<br>
+    <label>Step 1</label><br>
+    <textarea rows="6" cols="60"  name='step_1'>{{activity.activity_description['step_1']["Step 1"]}}</textarea><br>
+    <label>Step 1 Photo</label><br>
+    <input type ='text' name='photo_1'><img class="edit-img" src="{{activity.activity_description['step_1']['photo']}}"<br>
+    <label>Step 2</label><br>
+    <textarea rows="6" cols="60"  name='step_2'>{{activity.activity_description['step_2']['Step 2']}}</textarea><br>
+    <label>Step 2 Photo</label><br>
+    <input type ='text' name='photo_2'><img class="edit-img" src="{{activity.activity_description['step_2']['photo']}}"<br>
+    <label>Step 3</label><br>
+    <textarea rows="6" cols="60"  name='step_3'>{{activity.activity_description['step_3']['Step 3']}}</textarea><br>
+    <label>Step 3 Photo</label><br>
+    <input type ='text' name='photo_3'><img class="edit-img" src="{{activity.activity_description['step_3']['photo']}}"><br>
+    <label>Step 4</label><br>
+    <textarea rows="6" cols="60"  name='step_4'>{{activity.activity_description['step_4']['Step 4']}}</textarea><br>
+    <label>Step 4 Photo</label><br>
+    <input type ='text' name='photo_4'><img class="edit-img" src="{{activity.activity_description['step_4']['photo']}}"><br>
+    <label> Step 5 </label><br>
+    <textarea rows="6" cols="60"  name='step_5'>{{activity.activity_description['step_5']['Step 5']}}</textarea><br>
+    <label>Step 5 Photo</label><br>
+    <input type ='text' name='photo_5'><img class="edit-img" src="{{activity.activity_description['step_5']['photo']}}"><br>
+    <label>Step 6</label><br>
+    <textarea rows="6" cols="60"  name='step_6'>{{activity.activity_description['step_6']['Step 6']}}</textarea><br>
+    <label>Step 6 Photo</label><br>
+    <input type ='text' name='photo_6'><img class="edit-img" src="{{activity.activity_description['step_6']['photo']}}"><br>
+    <label>Keywords</label><br>
+    <textarea rows="6" cols="60" name='keywords'>{{activity.keywords}}</textarea><br>
+
+
+    {{activity.effort_rating}}
+    <label>Effort Rating</label><br>
+    <select id="rating" name="effort_rating">
+        <option disabled selected value></option>
+        <option value='Quick and easy' >Quick and easy </option>
+        <option value='A little involved' >A little involved </option>
+        <option value='Somwhat time intensive' >Somwhat time intensive </option>
+        <option value= 'Maximum effort required' >Maximum effort required </option>
+    </select><br>
+    {{activity.location}}
+    <label>Location</label><br>
+    <select id="location" name="location">
+        <option disabled selected value></option>
+        <option value='indoors'>Indoors </option>
+        <option value='outdoors'>Outdoors</option>
+        <option value='indoors/outdoors'>Indoors and outdoors</option>
+    </select><br>
+    <label>Minimum Age </label><br>
+    <input type ='number' name='min_age' value={{activity.min_age}}> <br>
+    <label>Maximum Age</label><br>
+    <input type ='number' name='max_age'value={{activity.max_age}}> <br>
+    <label>Minimum Cost</label><br>
+    <input type ='number' name='min_cost' value={{activity.min_cost}}> <br>
+    <label>Maximum Cost</label><br>
+    <input type ='number' name='max_cost' value={{activity.max_cost}}> <br>
+
+<label>Current Materials:</label>
+    {% set material_list = [] %}
+    {% for i in activity.materials %} 
+        {{material_list.append(i.material_id) or ""}}
+        <li>{{i.material_name}}</li>
+    {% endfor %}
+
+<h5>Materials:</h5>
+{% for material in materials %}
+<input type='checkbox' {%  if material.material_id in material_list %} checked="checked" {% endif %} name='materials[]' value="{{material.material_id}}"> {{material.material_name}} <br/>
+{% endfor %}
+
+<label>Current Interests:</label>
+    {% set interest_list = [] %}
+    {% for i in activity.interests %} 
+        {{interest_list.append(i.interest_id)  or "" }}
+        <li>{{i.interest_name}}</li>
+    {% endfor %}
+
+<h5>Interests:</h5>
+    {% for interest in interests %}
+    <input type='checkbox'  {%  if interest.interest_id in interest_list %} checked="checked" {% endif %} name='interests[]' value={{interest.interest_id}}> {{interest.interest_name}} <br/>
+    {% endfor %}
+
+
+<label>Current Seasonal Selection:</label>
+    {% set time_period_list = [] %}
+    {% for i in activity.time_periods %} 
+        {{time_period_list.append(i.time_period_id)  or "" }}
+        <li>{{i.time_period_name}}</li>
+    {% endfor %}
+<h5>Time of the Year:</h5>
+    {% for time_period in time_periods %}
+
+    <input type='checkbox' {% if time_period.time_period_id in time_period_list %} checked="checked" {% endif %} name='time_periods[]' value={{time_period.time_period_id}}> {{time_period.time_period_name}} <br/>
+
+    {% endfor %}
+
+    <input type='submit'>
+
+</form>
+
+<form id="delete" action='/delete_activity/{{activity.activity_id}}' method='post'>
+    To delete this activity, click the button below.
+    This action cannot be undone.
+    <input type='submit' value='delete'>
+</form>
+
+
+</div>
+
+{% endblock %}

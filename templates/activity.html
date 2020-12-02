@@ -2,63 +2,90 @@
 
 {% block title %}{{ activity.activity_name }} - Details{% endblock %}
 
+
 {% block body %}
-<h1>{{ activity.activity_name }}</h1>
 
-</style>
-
-	
+<body id="profile">
+<div class="container user-profile">
+<div class="row">
+    <div class="col-2 offset-10">
+        {% if session['loggedin']%}
+        <form action='/activity/add_favorite/{{activity.activity_id}}' id="fav" method='post'>
+            <button type="submit" class="btn btn-primary btn-rounded btn-sm float-right">Favorite<i class="fas fa-heart ml-2" id="heart" aria-hidden="true"></i></button>
+        </form>
+        {% endif %}
+    </div>
 </div>
 
-<p>
+    <h1 class="activity-title">{{ activity.activity_name }}</h1>
+    <div class="dropdown-divider"></div>
+
+    <small class="form-text text-muted">{{avg_rating}}/5 stars from {{rating_count}} reviewers</small>
+
+
+<p class="activity-text">
     {% for i in activity.activity_description.values() %}
         {% for j,k in i.items() %}
         {% if j == "photo" %}
-            <img src="{{k}}">
+            <img class="activity-image" src="{{k}}">
         {% else %}
-            <p>{{k}}</p>
+            <p class="activity-text">{{k}}</p>
         {% endif %}
     {% endfor %}
     {% endfor %}
 
 </p>
-<div>
-    <h1>Comment on {{ activity.activity_name }}</h1>
-
+</div>
+{% if session['loggedin']%}
+    <div class="container user-profile">
+    <h5>Comment on {{ activity.activity_name }}</h5>
+    <div class="dropdown-divider"></div>
     <div>
-        <form action='/activity/add_favorite/{{activity.activity_id}}' id="fav" method='post'>
-            <input type="submit" value="Favorite" >
-        </form>
-
-<h1>Comment on {{ activity.activity_name }}</h1>
-
-<div>
     <form action='/activity/add_comment/{{activity.activity_id}}' method='post'>
-        <textarea rows="10" cols="100" name="comment">Comment</textarea>
-        <select id="rating" name="rating">
-            <option value=1 >1 </option>
-            <option value=2 >2 </option>
-            <option value=3 >3 </option>
-            <option value=4 >4 </option>
-            <option value=5 >5 </option>
-        </select>
-        <input type="submit" value="Submit" >
-        </form>
-        
-        
+        <div class="form-group">
+        <div class="star-group" >
+            <input class="star-radio" type="radio" id="rating-1" name="rating" value=1>
+            <label class="star" for="rating-1"></label>
+            <input class="star-radio" type="radio" id="rating-2" name="rating" value=2>
+            <label class="star" for="rating-2"></label>
+            <input class="star-radio" type="radio" id="rating-3" name="rating" value=3>
+            <label class="star" for="rating-3"></label>
+            <input class="star-radio" type="radio" id="rating-4" name="rating" value=4>
+            <label class="star" for="rating-4"></label>
+            <input class="star-radio" type="radio" id="rating-5" name="rating" value=5>
+            <label class="star" for="rating-5"></label>
+        </div>  
+        <br>
+        <br>
+        <textarea class="form-control" rows="5" name="comment">Comment</textarea>
+        <br>
+        <input class="btn btn-light btn-sm" type="submit" value="Submit" >
         </div>
+    </form>
+    </div>
+    </div>
+{% endif %}
 
-
-</div>
-</div>
-<p> Comments:</p>
-    {% for i in activity.comment %}
-        <div>{{i.comment_text}}
+<div class="container user-profile">
+<h5>Activity Comments</h5><br>
+<div class="dropdown-divider"></div>
+    {% for i in activity.comments %}
+        {{i.comment_text}}<br>
+        {{i.star_rating}}/5 <br>
+        <small class="form-text text-muted">
+            Reviewed on: {{i.timestamp.strftime('%m-%d-%Y')}}<br> by
+            {% for j in i.users %}
+            {{j.username}}<br>
+            </small>
+            {% endfor %}
+            <div class="dropdown-divider"></div>
     {% endfor %}
         </br>
-        </div>
+    </div>
+        
 
-    
-
+</div>    
+</div>
+</body>
 {% endblock %}
 

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Suggested Activities{% endblock %}
+{% block body%}
+<doctype html="">
+  <title>Suggested Activities</title>
+
+                  {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                    <ul class="flashes">
+                    {% for message in messages %}
+                      <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endwith %}
+                <span>
+                  {% for activity in personal_activity %}
+                  <div class="container">
+                  <div class='card mb-3' style='max-width: 900px;'>
+                    <div class='row no-gutters'>
+                      <div class='col-md-3'>
+                        <img class='card-img' src="{{activity.activity_description['overview']['photo']}}">
+                        
+                      </div><div class='col-md-9'> 
+                        <div class='card-header'>{{activity.activity_name}}</div>
+                        <h5 class='card-title'></h5>
+                        <p class='card-text'>{{activity.activity_description['overview']['Overview']}}</p>
+                        <a href="{{url_for('show_activity', activity_id = activity.activity_id)}}">Link</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </span>
+                </div>
+              </div>
+
+
+
+{%endblock%}
+<script>
+
+
+</script>
+</body>
+</html>

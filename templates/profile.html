@@ -2,42 +2,216 @@
 {% block title %}Profile Page{% endblock %}
 
 {% block body%}
+<body id="profile">
+<div class="container user-profile">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-img">
+                <img src="#">
+                <div class="file btn btn-lg btn-primary">
+                    <form method="post">
+                    Change Photo
+                    <input type="file" name="file"/>
+                    </form>
+                </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="profile-activities">
+                        <h6>ACCOUNT INFORMATION</h6><br>
+                        <p>Username: {{user.username}}<br>
+                        Email Address: {{user.email}}<br>
+                        Zipcode: {{user.zipcode}}</p>
+                        <br>
 
-
-<h2>{{name}}'s Profile Page</h2>
-<div>
-    <p>Your account details are below:</p>
-    <table>
-        <tr>
-            <td>Username:</td>
-            <td>{{ user.first_name }}</td>
-        </tr>
-        <tr>Your Favorite Activities</tr>
-            {% for i in user.activities %} 
-                <li>{{i.activity_name}}</li>
-                <a href= "{{url_for('show_activity', activity_id = i.activity_id)}}">Test</a>
-                
-            {% endfor %}
-        <tr>
-            <td>Email:</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.user_id }}</td>
-        </tr>
-    </table>
-
-
-<p> Your Children:</p>
-    {% for i in user.children%}
-        <div>{{i.child_name}}
-        {% for l in i.interests %}
-        <li>{{l.interest_name}}</li>
-        {% endfor %}
-        </br>
-        {% endfor %}
-        </br>
+                        <a class='btn btn-light' href="{{ url_for('profile_edit')}}" name="btnAddMore" value="Edit Profile">Edit Profile</a>
+                        <button type="button" class="btn btn-primary"data-toggle="modal" data-target="#profileModal">Edit Profile</button>
+                    </div>
+                </div>
+            </div>
         </div>
- 
+        </div>
 
-    <a class="nav-link" href="{{ url_for('add_child') }}">Add a child</a></li>
+
+                <div class="col-md-8">
+                    <div class="profile-head">
+                                <h2>
+                                    {{user.first_name}} {{user.last_name}}
+                                </h2>
+                                <br>
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">My Kids</a>
+                            </li>
+                        </ul>
+                    </div>
+                            {% for i in user.children%}
+                            <div class="row">
+                                    <div class='kid-card col-11 mb-3'>
+                                        <div class='row no-gutters'>
+                                            <div class='col-md-2'>
+                                                <img class='kid-card-img' src="{{i.photo}}">
+                                            </div>
+                                            <div class='col-md-10'> 
+                                                <div class='card-header'><b>{{i.child_name}}</b></div>
+                                                    <h5 class='card-title'></h5>
+                                                        <p class='card-text'><b>Birthdate: </b> {{i.birthdate}} <br>
+                                                            <p><b>Interests:</b>
+                                                            {% for l in i.interests %}
+                                                                <li>{{l.interest_name}}</li>
+                                                            {% endfor %}</p>
+                                                            <br>
+                                                            <form action='/suggest_activities'>
+                                                                <button class="btn btn-outline-secondary" name="personal_activity" value={{i.child_id}}>Suggest Activities for {{i.child_name}}</button>
+                                                            </form>
+                                                            <a class="btn btn-outline-secondary" href="{{url_for('edit_child', child_id=i.child_id)}}" name="edit_child" value={{i.child_id}}>Edit {{i.child_name}}'s Profile</a>
+                                                        </div>  
+                                        </div>
+                                    </div>
+                            </div>
+                            {% endfor %}
+                            <div class="row">
+                                <div class="col-3 offset-9">
+                                    <button type="button" class="btn btn-primary"data-toggle="modal" data-target="#childModal">Add a Child</button>
+                            <a class="btn btn-outline-secondary" href="{{ url_for('add_child')}}">Add a child</a></li>
+                            </div>
+                        </div>
+                            <div class="profile-head">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active">My Favorite Activities</a>
+                                </li>
+                            </ul>
+                            </div>
+                            {% for i in user.activities %} 
+                            <div class="row">
+                                <div class='kid-card mb-3'>
+                                    <div class='row no-gutters'>
+                                    <div class='col-md-2'>
+                                        <img class='card-img' src="{{i.activity_description['overview']['photo']}}">
+                                    </div>
+                                    <div class='col-md-10'> 
+                                        <div class='card-header'>
+                                        <a href="{{url_for('show_activity', activity_id = i.activity_id)}}">{{i.activity_name}}</a>
+                                    </div>
+                                        <h5 class='card-title'></h5>
+                                        <p class='card-text'>{{i.activity_description['overview']['Overview']}}</p>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                </div>
 </div>
+</div>
+
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Your User Profile</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+            <form action='/profile/edit' method='post'>
+                <label>Last Name</label>                
+                <input class="form-control" type ='text' name='last_name' value= {{user.last_name}} > </br>
+                <label>Username</label> 
+                <input class="form-control" type ='text' name='username' value= {{user.username}} > </br>
+                <label>Email</label> 
+                <input class="form-control" type ='text' name='email' value={{user.email}} > </br>
+                <label>Password</label> 
+                <input class="form-control" type ='text' name='password' value={{user.password}} >  </br>
+                <label>Zipcode</label> 
+                <input class="form-control" type ='text' name='zipcode' value={{user.zipcode}} > </br>
+            </div>
+                         
+            </form>
+        </div>  
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="childModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add a Child</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action='/add_child' method='post' >
+
+                <h6>First Name:</h6>
+                <input class="form-control" type ='text' name='child_name'><br>
+                <h6>Birthdate:</h6><br>
+                <input type ='date' name='birthdate'><br><br>
+            <h6>Gender:</h6><br>
+            <div class='form-check'>
+                <input class="form-check-input" type="radio" name='gender' id="malegender" value='male'>
+                <label class="form-check-label" >Male</label><br>
+                <input class="form-check-input" type ='radio' name='gender' value='female'>
+                <label class="form-check-label" >Female</label><br>
+                <br>
+            </div>
+            <h6>Select an Avatar:</h6><br>
+            <div class='form-check'>
+                <img class='avatar' src='https://img.freepik.com/free-vector/pink-abstract-background_1077-11.jpg'>
+                <input class="form-check-input" type ='radio' name='photo' value='https://img.freepik.com/free-vector/pink-abstract-background_1077-11.jpg'> Pink </br>
+                <img class='avatar' src='https://image.freepik.com/free-vector/light-blue-abstract-background_1077-3.jpg'>
+                <input class="form-check-input" type ='radio' name='photo' value='https://image.freepik.com/free-vector/light-blue-abstract-background_1077-3.jpg'> Blue </br>
+                <img class='avatar' src='https://image.freepik.com/free-vector/orange-abstract-background_1077-2.jpg'>
+                <input class="form-check-input" type ='radio' name='photo' value='https://image.freepik.com/free-vector/orange-abstract-background_1077-2.jpg'> Orange </br>
+                <img class='avatar' src='https://image.freepik.com/free-vector/green-abstract-background_1077-9.jpg'>
+                <input class="form-check-input" type ='radio' name='photo' value='https://image.freepik.com/free-vector/green-abstract-background_1077-9.jpg'> Green </br>
+                <img class='avatar' src='https://image.freepik.com/free-vector/purple-abstract-background_1077-8.jpg'>
+                <input class="form-check-input"type ='radio' name='photo' value='https://image.freepik.com/free-vector/purple-abstract-background_1077-8.jpg'> Purple </br>
+                <img class='avatar' src='https://image.freepik.com/free-vector/bright-colorful-abstract-background_1077-6.jpg'>
+                <input class="form-check-input"type ='radio' name='photo' value='https://image.freepik.com/free-vector/bright-colorful-abstract-background_1077-6.jpg'> Rainbow </br>
+            </div>
+            </div>    
+        
+    <br>
+    <div class="form-check">
+    <h6>Child's Interests:</h6>
+    
+    {% for interest in interests %}
+    
+    <input class="form-check-input" type="checkbox" name='interests[]' value={{interest.interest_id}}>
+    <label class="form-check-label">{{interest.interest_name}}</label><br>
+    {% endfor %}
+    </div>
+        <input class="btn btn-light" type='submit'>
+        </form>
+        </div>  
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+           
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+</body>
 {% endblock %}

@@ -1,25 +1,13 @@
 {% extends 'base.html' %}
-{% block title %}New User Registration{% endblock %}
+{% block title %}Edit Your Child's Profile{% endblock %}
 
 {% block body%}
-<body id="profile">
-    <div class="container user-profile">
-        <div class="col-10">
-            <h4>Add a Child to Your Profile</h4><br><br>
-        <form action='/add_child' method='post' >
 
-                <h6>First Name:</h6>
-                <input class="form-control" type ='text' name='child_name'><br>
-                <h6>Birthdate:</h6><br>
-                <input type ='date' name='birthdate'><br><br>
-            <h6>Gender:</h6><br>
-            <div class='form-check'>
-                <input class="form-check-input" type="radio" name='gender' id="malegender" value='male'>
-                <label class="form-check-label" >Male</label><br>
-                <input class="form-check-input" type ='radio' name='gender' value='female'>
-                <label class="form-check-label" >Female</label><br>
-                <br>
-            </div>
+<div class="container">
+<h4>Edit {{child.child_name}}'s Profile</h4><br>
+
+
+<form action='/edit_child/{{child.child_id}}' method='post' >
             <h6>Select an Avatar:</h6><br>
             <div class='form-check'>
                 <img class='avatar' src='https://img.freepik.com/free-vector/pink-abstract-background_1077-11.jpg'>
@@ -35,22 +23,19 @@
                 <img class='avatar' src='https://image.freepik.com/free-vector/bright-colorful-abstract-background_1077-6.jpg'>
                 <input class="form-check-input"type ='radio' name='photo' value='https://image.freepik.com/free-vector/bright-colorful-abstract-background_1077-6.jpg'> Rainbow </br>
             </div>
-            </div>    
-        
-    <br>
-
-            <h6>Child's Interests:</h6>
-                <select class="custom-select"  id="interest" multiple="multiple" name='interests[]'>
-                    {% for interest in interests %}
-                    <option value={{interest.interest_id}}> {{interest.interest_name}} </option>
-                    {% endfor %}
-                </select>
-        <input class="btn btn-light" type='submit'>
-        </form>
-
-        </div>
-    </div>
-</body>
-
+            <br><br>
+            <h6>Child's Interests:</h6><br>
+            <div class="form-check">
+                {% set interest_list = [] %}
+                {% for interest in child.interests %} 
+                    {{interest_list.append(interest.interest_id)  or "" }}
+                {% endfor %}
+            {% for interest in interests %}
+            <input class="form-check-input" type="checkbox"  {%  if interest.interest_id in interest_list %} checked="checked" {% endif %} name='interests[]' value={{interest.interest_id}}> {{interest.interest_name}} <br/>
+            {% endfor %}
+            </div><br>
+                <input class="btn btn-light" type='submit'>
+                </form>
+                </div>  
+                
 {% endblock %}
-

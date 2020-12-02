@@ -20,26 +20,13 @@ with open('data/activities.json') as x:
 
 activity_in_db =[]
 for activity in activity_info:
-    activity_name,  min_age, max_age, min_cost, max_cost, location, effort_rating, activity_description, = (activity['activity_name'],activity['min_age'],activity['max_age'],activity['min_cost'],
-    activity['max_cost'],activity['location'],activity['effort_rating'],activity['activity_description'])
+    activity_name, min_cost, max_cost, min_age, max_age, location, effort_rating, keywords, activity_description, timestamp = (activity['activity_name'],activity['min_cost'],activity['max_cost'],activity['min_age'],
+    activity['max_age'],activity['location'],activity['effort_rating'],activity['keywords'],activity['activity_description'], activity['timestamp'])
         
-    db_activity = crud.create_activity(activity_name, min_age,max_age, min_cost, max_cost, location, effort_rating, activity_description,)
+    db_activity = crud.create_activity(activity_name, min_cost,max_cost, min_age, max_age, location, effort_rating, keywords, activity_description)
 
     activity_in_db.append(db_activity)
 
-
-
-# with open('data/activities.json') as x:
-#     activity_info = json.loads(x.read())
-
-# activity_in_db =[]
-# for activity in activity_info:
-#     activity_name,  min_age, max_age, min_cost, max_cost, location, effort_rating, photo_path, activity_description, = (activity['activity_name'],activity['min_age'],activity['max_age'],activity['min_cost'],
-#     activity['max_cost'],activity['location'],activity['effort_rating'],activity['photo_path'],activity['activity_description'])
-        
-#     db_activity = crud.create_activity(activity_name, min_age,max_age, min_cost, max_cost, location, effort_rating, photo_path, activity_description,)
-
-#     activity_in_db.append(db_activity)
 
 with open('data/interest_info.json') as f:
     interest_info = json.loads(f.read())
@@ -57,10 +44,10 @@ with open('data/user_data.json') as e:
 
 users_in_db = []
 for user in user_data:
-    first_name, last_name, email, password, zipcode = (user['first_name'], user['last_name'],
-    user['email'], user['password'], user['zipcode'])
+    first_name, last_name, email, username, password, zipcode = (user['first_name'], user['last_name'], 
+    user['email'], user['username'], user['password'], user['zipcode'])
 
-    db_user = crud.create_user(first_name, last_name, email, password, zipcode)
+    db_user = crud.create_user(first_name, last_name, email, username, password, zipcode)
         
     users_in_db.append(db_user)
 
@@ -69,9 +56,9 @@ with open('data/child_data.json') as d:
 
 child_in_db = []
 for child in child_data:
-    child_name, birthdate, gender = (child['child_name'], child['birthdate'], child['gender'])
+    child_name, birthdate, gender, photo = (child['child_name'], child['birthdate'], child['gender'], child['photo'])
 
-    db_child = crud.create_child(child_name, birthdate, gender)
+    db_child = crud.create_child(child_name, birthdate, gender, photo)
         
     child_in_db.append(db_child)
 

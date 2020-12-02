@@ -1,10 +1,13 @@
 from settings import db
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import joinedload,backref
+from datetime import datetime
+import json
+import pprint
 
 
 
-print('importing class Activity from model')
+
 class Activity(db.Model):
 
     __tablename__ = "activities"
@@ -19,7 +22,11 @@ class Activity(db.Model):
     max_age = db.Column(db.Integer)
     location = db.Column(db.String())
     effort_rating = db.Column(db.String())
+    keywords = db.Column(db.String())
     activity_description = db.Column(db.JSON())
+    timestamp = db.Column(
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+    )
 
     interests = db.relationship("Interest",
                             secondary="activities_interests", back_populates="activities")
@@ -32,17 +39,20 @@ class Activity(db.Model):
     comments = db.relationship("Comment",
                             secondary="activities_comments", back_populates="activities")
 
-    activities_interests = db.relationship("ActivityInterest", back_populates="activities")
-    activities_time_periods= db.relationship("ActivityTimePeriod", back_populates="activities")
-    activities_comments= db.relationship("ActivityComment", back_populates="activities")
-    users_activities= db.relationship("UserActivity", back_populates="activities")
-    activities_materials= db.relationship("ActivityMaterial", back_populates="activities")
+    activities_interests = db.relationship("ActivityInterest", back_populates="activities", cascade="all, delete")
+    activities_time_periods= db.relationship("ActivityTimePeriod", back_populates="activities", cascade="all, delete")
+    activities_comments= db.relationship("ActivityComment", back_populates="activities", cascade="all, delete")
+    users_activities= db.relationship("UserActivity", back_populates="activities", cascade="all, delete")
+    activities_materials= db.relationship("ActivityMaterial", back_populates="activities", cascade="all, delete")
+
+
 
     def __repr__(self):
         return f'<Activity activity_id={self.activity_id} name={self.activity_name}>'
 
-    
-print('importing class Interest')
+
+
+        
 class Interest(db.Model):
 
     __tablename__ = "interests"
@@ -60,9 +70,9 @@ class Interest(db.Model):
                             secondary="interests_time_periods", back_populates="interests")
 
 
-    activities_interests = db.relationship("ActivityInterest", back_populates="interests")
-    children_interests= db.relationship("ChildInterest", back_populates="interests")
-    interests_time_periods= db.relationship("InterestsTimePeriod", back_populates="interests")
+    activities_interests = db.relationship("ActivityInterest", back_populates="interests", cascade="all, delete")
+    children_interests= db.relationship("ChildInterest", back_populates="interests", cascade="all, delete")
+    interests_time_periods= db.relationship("InterestsTimePeriod", back_populates="interests", cascade="all, delete")
 
     def __repr__(self):
         return f'<Interest interest_id={self.interest_id} name={self.interest_name}>'
@@ -80,20 +90,22 @@ class User(db.Model):
                         autoincrement=True)
     first_name = db.Column(db.String())
     last_name = db.Column(db.String())
+    username = db.Column(db.String(), unique=True)
     email = db.Column(db.String(), unique=True)
     password = db.Column(db.String())
     zipcode = db.Column(db.Integer)
+    photo = db.Column(db.String())
 
 
     children = db.relationship("Child",
-                            secondary="users_children", back_populates="users")
+                            secondary="users_children", back_populates="users", cascade="all, delete")
     comments = db.relationship("Comment",
-                            secondary="users_comments", back_populates="users")
+                            secondary="users_comments", back_populates="users", cascade="all, delete")
     activities = db.relationship("Activity",
-                            secondary="users_activities", back_populates="users")  
-    users_activities= db.relationship("UserActivity", back_populates="users")
-    users_comments= db.relationship("UserComment", back_populates="users")
-    users_children= db.relationship("UserChild", back_populates="users")
+                            secondary="users_activities", back_populates="users", cascade="all, delete")  
+    users_activities= db.relationship("UserActivity", back_populates="users", cascade="all, delete")
+    users_comments= db.relationship("UserComment", back_populates="users", cascade="all, delete")
+    users_children= db.relationship("UserChild", back_populates="users", cascade="all, delete")
     
     def __repr__(self):
         return f'<User user_id={self.user_id} first_name={self.first_name} last_name={self.last_name} email={self.email}>'
@@ -108,16 +120,17 @@ class Child(db.Model):
                         autoincrement=True,
                         primary_key=True)
     child_name = db.Column(db.String())
-    birthdate = db.Column(db.DateTime())
+    birthdate = db.Column(db.String())
     gender = db.Column(db.String())
+    photo = db.Column(db.String())
 
     interests = db.relationship("Interest",
                             secondary="children_interests", back_populates="children")
     users = db.relationship("User",
                             secondary="users_children", back_populates="children") 
 
-    users_children= db.relationship("UserChild", back_populates="children")
-    children_interests= db.relationship("ChildInterest", back_populates="children")
+    users_children= db.relationship("UserChild", back_populates="children", cascade="all, delete")
+    children_interests= db.relationship("ChildInterest", back_populates="children", cascade="all, delete")
 
     
     def __repr__(self):
@@ -133,13 +146,17 @@ class Comment(db.Model):
                         primary_key=True)
     comment_text = db.Column(db.Text())
     star_rating = db.Column(db.Integer)
+    timestamp = db.Column(
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+    )
 
     users = db.relationship("User",
-                            secondary="users_comments", back_populates="comments") 
+                            secondary="users_comments", back_populates="comments", cascade="all, delete") 
     activities = db.relationship("Activity",
-                            secondary="activities_comments",back_populates="comments") 
-    activities_comments= db.relationship("ActivityComment", back_populates="comments")
-    users_comments= db.relationship("UserComment", back_populates="comments")
+                            secondary="activities_comments",back_populates="comments", cascade="all, delete") 
+    activities_comments= db.relationship("ActivityComment", back_populates="comments", cascade="all, delete")
+    users_comments= db.relationship("UserComment", back_populates="comments", cascade="all, delete")
+    
 
 
     def __repr__(self):
@@ -158,8 +175,8 @@ class Material(db.Model):
     material_url = db.Column(db.String())
 
     activities = db.relationship("Activity",
-                            secondary="activities_materials", back_populates="materials")
-    activities_materials= db.relationship("ActivityMaterial", back_populates="materials")
+                            secondary="activities_materials", back_populates="materials", cascade="all, delete")
+    activities_materials= db.relationship("ActivityMaterial", back_populates="materials", cascade="all, delete")
 
     def __repr__(self):
         return f'<Material material_id={self.material_id} name={self.material_name}>'
@@ -175,12 +192,12 @@ class TimePeriod(db.Model):
     time_period_name = db.Column(db.String())
 
     activities = db.relationship("Activity",
-                            secondary="activities_time_periods", back_populates="time_periods")
+                            secondary="activities_time_periods", back_populates="time_periods", cascade="all, delete")
     interests = db.relationship("Interest",
-                            secondary="interests_time_periods", back_populates="time_periods")
+                            secondary="interests_time_periods", back_populates="time_periods", cascade="all, delete")
 
-    interests_time_periods= db.relationship("InterestsTimePeriod", back_populates="time_periods")
-    activities_time_periods= db.relationship("ActivityTimePeriod", back_populates="time_periods")
+    interests_time_periods= db.relationship("InterestsTimePeriod", back_populates="time_periods", cascade="all, delete")
+    activities_time_periods= db.relationship("ActivityTimePeriod", back_populates="time_periods", cascade="all, delete")
 
 
 

@@ -1,46 +1,97 @@
 {% extends 'base.html' %}
-{% block title %}New User Registration{% endblock %}
-
+{% block title %}Search{% endblock %}
 {% block body%}
-<doctype html="">
-  <title>Filter</title>
+<body id="profile">
+  <div id="page-container"> 
+  <div class="container-fluid">
+    <div class="row">
+        <div class="col-3 px-1 position-fixed" id="sidebar">
+          <div class="nav flex-column flex-nowrap vh-100 overflow-auto text-black p-2">
+                <form action ="/filter" id="myform" class="myform" name="myform" method='GET'>
+                  <br><br><br>
+                  <h6>Effort Involved:</h6>
+                  <select class="custom-select"  id="effort" multiple="multiple" name='effort_rating[]'>
+                    <option value="Quick and easy"> Quick and easy</option>
+                    <option value="A little involved"> A little involved</option>
+                    <option value="Somewhat time intensive"> Somewhat time intensive</option>
+                    <option value="Maximum effort required"> Maximum effort required</option>
+                </select>
+                <span></span>
+                <div id="ageSlider" class="slider" min='0' max="13"></div>
+                  <br>  
+                  <h6>Age:</h6>
+                  <input type ='number' name='min_age' class="sliderValue" data-index="0" min='0' max="13"> Minimum Age </br>
+                  <input type ='number' name='max_age' class="sliderValue" data-index="1" min='0' max="13"> Maximum Age </br>
+                <div id="costSlider"></div>
+                <br>
+                <h6>Cost:</h6>
+                  <input type ='number' name='min_cost' min='0' max="50"> Minimum Cost </br>
+                  <input type ='number' name='max_cost' min='0' max="50"> Maximum Cost </br>
+                
+                <br>
+                <h6>Materials:</h6>
+                <select class="custom-select"  id="material" multiple="multiple" name='materials[]'>
+                  {% for material in materials %}
+                  <option value={{material.material_id}}> {{material.material_name}} </option>
+                  {% endfor %}
+                </select>
+                <br>
+                <br>
+                <h6>Interests:</h6>
+                <select class="custom-select"  id="interest" multiple="multiple" name='interests[]'>
+                    {% for interest in interests %}
+                    <option value={{interest.interest_id}}> {{interest.interest_name}} </option>
+                    {% endfor %}
+                </select>
+                <br>
+                <br>
+                <h6>Time of the Year:</h6>
+                <select class="custom-select"  id="time_period" multiple="multiple" name='time_periods[]'>
+                {% for time in time_periods %}
+                <option value={{time.time_period_id}}> {{time.time_period_name}} </option>
+                {% endfor %}
+                </select>
+                <br>
+                    <input type="hidden" name="hiddenField" id="hiddenField" value={{basic_search}}> 
+                    <br>
+                    <br>
+                  <input class="btn btn-light" type="submit" id="searchButton" value="Search">
 
-  {% for i in results%}
-  <li>{{i.activity_name}}</li>
-  <a href= "{{url_for('show_activity', activity_id = i.activity_id)}}">Link</a>
-  <li>{{i.activity_description['overview']['Overview']}}</li>
-  {% endfor %}
+                </form>
+                </div>
+              </div>
+            </div>
+  </div>
 
-<form action='/filter' method='GET'>
-  <input type='checkbox' name=effort_rating[] value="Quick and easy">Quick and easy</br>
-  <input type='checkbox' name=effort_rating[] value="A little involved">A little involved</br>
-  <input type='checkbox' name=effort_rating[] value="Somwhat time intensive">Somwhat time intensive </br>
-  <input type='checkbox' name=effort_rating[] value="Maximum effort required">Maximum effort require</br>
 
-    <input type ='number' name='min_age' min='0' max="99"> Minimum Age </br>
-    <input type ='number' name='max_age'min='0' max="99"> Maximum Age </br>
-    <input type ='number' name='min_cost' min='0' max="99"> Minimum Cost </br>
-    <input type ='number' name='max_cost' min='0' max="99"> Maximum Cost </br>
-<div>
-<h3>Materials:</h3>
-{% for material in materials %}
-<input type='checkbox' name='materials[]' value={{material.material_id}}> {{material.material_name}} <br/>
-{% endfor %}
-</div>
-<div>
-<h3>Interests:</h3>
-    {% for interest in interests %}
-    <input type='checkbox' name='interests[]' value={{interest.interest_id}}> {{interest.interest_name}} <br/>
-    {% endfor %}
-    </div>
-<div>
-    <h3>Time of the Year:</h3>
-    {% for time in time_periods %}
-    <input type='checkbox' name='time_periods[]' value={{time.time_period_id}}> {{time.time_period_name}} <br/>
-    {% endfor %}
-    </div>
-  <p><input type="submit" value="Search">
-</p></form>
+                  {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                    <ul class="flashes">
+                    {% for message in messages %}
+                      <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endwith %}
+
+                  <div class="container col-md-8 offset-3" id="search-container"> 
+                    <div class="form-group row">
+                      <div class="col-sm-11">
+                        <form id="mainSearch">
+                          <input type="text" class="form-control" name= "textSearch" id="textSearch" value={{basic_search}}>
+                        </div>
+                        
+                        <button class="btn btn-light"  type="submit" id="changeValue">Search</button> 
+                    </form>
+                    
+                    </div>
+                  
+                </div> 
+                <div class="featured-container col-md-8 offset-3" >
+                <span id="results"></span>
+                </div>
+
+  </div>
 
 {% endblock %}
-
+</body>
