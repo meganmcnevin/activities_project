@@ -4,10 +4,10 @@
 /* STARS ANIMATION   */
 
 $('input[type="radio"]').click(function() {
-  var theNumber = $(this).attr('id').slice(-1);
+  var thisNumber = $(this).attr('id').slice(-1);
   $(this).siblings('label').each(function() {
-    var sibNumber = $(this).attr('for').slice(-1);
-    if (sibNumber <= theNumber) {
+    var starSib = $(this).attr('for').slice(-1);
+    if (starSib <= thisNumber) {
       $(this).addClass('on');
     } else {
       $(this).removeClass('on');

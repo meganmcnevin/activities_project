@@ -1,29 +1,32 @@
 {% extends 'base.html' %}
-
 {% block title %}{{ activity.activity_name }} - Details{% endblock %}
-
-
 {% block body %}
 
 <body id="profile">
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 <div class="container user-profile">
 <div class="row">
     <div class="col-2 offset-10">
         {% if session['loggedin']%}
         <form action='/activity/add_favorite/{{activity.activity_id}}' id="fav" method='post'>
-            <button type="submit" class="btn btn-primary btn-rounded btn-sm float-right">Favorite<i class="fas fa-heart ml-2" id="heart" aria-hidden="true"></i></button>
+            <button type="submit" class="btn btn-primary btn-rounded btn-sm float-right">Favorite<i class="fas fa-heart ml-2 {% if is_fav %} liked {% endif %}" id="heart" aria-hidden="true"></i></button>
         </form>
         {% endif %}
     </div>
-</div>
-
+    </div>
     <h1 class="activity-title">{{ activity.activity_name }}</h1>
     <div class="dropdown-divider"></div>
-
     <small class="form-text text-muted">{{avg_rating}}/5 stars from {{rating_count}} reviewers</small>
-
-
-<p class="activity-text">
+    <p class="activity-text">
     {% for i in activity.activity_description.values() %}
         {% for j,k in i.items() %}
         {% if j == "photo" %}
@@ -33,8 +36,7 @@
         {% endif %}
     {% endfor %}
     {% endfor %}
-
-</p>
+    </p>
 </div>
 {% if session['loggedin']%}
     <div class="container user-profile">
@@ -80,7 +82,7 @@
             {% endfor %}
             <div class="dropdown-divider"></div>
     {% endfor %}
-        </br>
+        <br>
     </div>
         
 

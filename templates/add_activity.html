@@ -2,6 +2,17 @@
 {% block title %}New Activity{% endblock %}
 
 {% block body%}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<div class="container user-profile">
 <h1>Create A New Activity</h1>
 
 <form action='/add_activity' method='post'>
@@ -60,21 +71,22 @@
     <label>Maximum Cost</label><br>
     <input type ='number' name='max_cost'><br>
 
-<h5>Materials:</h5>
-{% for material in materials %}
-<input type='checkbox' name='materials[]' value={{material.material_id}}> {{material.material_name}} <br/>
-{% endfor %}
-
-<h5>Interests:</h5>
-    {% for interest in interests %}
-    <input type='checkbox' name='interests[]' value={{interest.interest_id}}> {{interest.interest_name}} <br/>
+    <h5>Materials:</h5>
+    {% for material in materials %}
+    <input type='checkbox' name='materials[]' value={{material.material_id}}> {{material.material_name}} <br/>
     {% endfor %}
 
-<h5>Time of the Year:</h5>
-    {% for time_period in time_periods %}
-    <input type='checkbox' name='time_periods[]' value={{time_period.time_period_id}}> {{time_period.time_period_name}} <br/>
-    {% endfor %}
+    <h5>Interests:</h5>
+        {% for interest in interests %}
+        <input type='checkbox' name='interests[]' value={{interest.interest_id}}> {{interest.interest_name}} <br/>
+        {% endfor %}
+
+    <h5>Time of the Year:</h5>
+        {% for time_period in time_periods %}
+        <input type='checkbox' name='time_periods[]' value={{time_period.time_period_id}}> {{time_period.time_period_name}} <br/>
+        {% endfor %}
 
     <input type='submit'>
-
+</form>
+</div>
 {% endblock %}

@@ -2,40 +2,48 @@
 {% block title %}Edit Your Child's Profile{% endblock %}
 
 {% block body%}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 
 <div class="container">
 <h4>Edit {{child.child_name}}'s Profile</h4><br>
-
-
 <form action='/edit_child/{{child.child_id}}' method='post' >
-            <h6>Select an Avatar:</h6><br>
-            <div class='form-check'>
-                <img class='avatar' src='https://img.freepik.com/free-vector/pink-abstract-background_1077-11.jpg'>
-                <input class="form-check-input" type ='radio' name='photo' value='https://img.freepik.com/free-vector/pink-abstract-background_1077-11.jpg'> Pink </br>
-                <img class='avatar' src='https://image.freepik.com/free-vector/light-blue-abstract-background_1077-3.jpg'>
-                <input class="form-check-input" type ='radio' name='photo' value='https://image.freepik.com/free-vector/light-blue-abstract-background_1077-3.jpg'> Blue </br>
-                <img class='avatar' src='https://image.freepik.com/free-vector/orange-abstract-background_1077-2.jpg'>
-                <input class="form-check-input" type ='radio' name='photo' value='https://image.freepik.com/free-vector/orange-abstract-background_1077-2.jpg'> Orange </br>
-                <img class='avatar' src='https://image.freepik.com/free-vector/green-abstract-background_1077-9.jpg'>
-                <input class="form-check-input" type ='radio' name='photo' value='https://image.freepik.com/free-vector/green-abstract-background_1077-9.jpg'> Green </br>
-                <img class='avatar' src='https://image.freepik.com/free-vector/purple-abstract-background_1077-8.jpg'>
-                <input class="form-check-input"type ='radio' name='photo' value='https://image.freepik.com/free-vector/purple-abstract-background_1077-8.jpg'> Purple </br>
-                <img class='avatar' src='https://image.freepik.com/free-vector/bright-colorful-abstract-background_1077-6.jpg'>
-                <input class="form-check-input"type ='radio' name='photo' value='https://image.freepik.com/free-vector/bright-colorful-abstract-background_1077-6.jpg'> Rainbow </br>
-            </div>
-            <br><br>
-            <h6>Child's Interests:</h6><br>
-            <div class="form-check">
-                {% set interest_list = [] %}
-                {% for interest in child.interests %} 
-                    {{interest_list.append(interest.interest_id)  or "" }}
-                {% endfor %}
-            {% for interest in interests %}
-            <input class="form-check-input" type="checkbox"  {%  if interest.interest_id in interest_list %} checked="checked" {% endif %} name='interests[]' value={{interest.interest_id}}> {{interest.interest_name}} <br/>
-            {% endfor %}
-            </div><br>
-                <input class="btn btn-light" type='submit'>
-                </form>
-                </div>  
+    <h6>Select an Avatar:</h6><br>
+    <div class='form-check'>
+        <img class='avatar' src='https://img.freepik.com/free-vector/pink-abstract-background_1077-11.jpg'>
+        <input class="form-check-input" type ='radio' name='photo' value='https://img.freepik.com/free-vector/pink-abstract-background_1077-11.jpg'> Pink </br>
+        <img class='avatar' src='https://image.freepik.com/free-vector/light-blue-abstract-background_1077-3.jpg'>
+        <input class="form-check-input" type ='radio' name='photo' value='https://image.freepik.com/free-vector/light-blue-abstract-background_1077-3.jpg'> Blue </br>
+        <img class='avatar' src='https://image.freepik.com/free-vector/orange-abstract-background_1077-2.jpg'>
+        <input class="form-check-input" type ='radio' name='photo' value='https://image.freepik.com/free-vector/orange-abstract-background_1077-2.jpg'> Orange </br>
+        <img class='avatar' src='https://image.freepik.com/free-vector/green-abstract-background_1077-9.jpg'>
+        <input class="form-check-input" type ='radio' name='photo' value='https://image.freepik.com/free-vector/green-abstract-background_1077-9.jpg'> Green </br>
+        <img class='avatar' src='https://image.freepik.com/free-vector/purple-abstract-background_1077-8.jpg'>
+        <input class="form-check-input"type ='radio' name='photo' value='https://image.freepik.com/free-vector/purple-abstract-background_1077-8.jpg'> Purple </br>
+        <img class='avatar' src='https://image.freepik.com/free-vector/bright-colorful-abstract-background_1077-6.jpg'>
+        <input class="form-check-input"type ='radio' name='photo' value='https://image.freepik.com/free-vector/bright-colorful-abstract-background_1077-6.jpg'> Rainbow </br>
+    </div>
+    <br><br>
+    <h6>Child's Interests:</h6><br>
+    <div class="form-check">
+        {% set interest_list = [] %}
+        {% for interest in child.interests %} 
+            {{interest_list.append(interest.interest_id)  or "" }}
+        {% endfor %}
+    {% for interest in interests %}
+    <input class="form-check-input" type="checkbox"  {%  if interest.interest_id in interest_list %} checked="checked" {% endif %} name='interests[]' value={{interest.interest_id}}> {{interest.interest_name}} <br/>
+    {% endfor %}
+    </div><br>
+        <input class="btn btn-light" type='submit'>
+</form>
+    </div>  
                 
 {% endblock %}

@@ -5,6 +5,7 @@ import json
 from sqlalchemy.sql import func, desc
 
 
+
 ##CREATE OBJECTS#
 ###################################################################################################
 
@@ -131,9 +132,9 @@ def calculate_age(born):
 
     return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
-def create_activity_description(activity_name, min_age, max_age, min_cost, max_cost, location, effort_rating, keywords,
-overview, overview_pic, step_1, photo_1, step_2, photo_2, step_3, photo_3, step_4, photo_4, step_5, photo_5,
+def create_activity_description(activity_name, overview, overview_pic, step_1, photo_1, step_2, photo_2, step_3, photo_3, step_4, photo_4, step_5, photo_5,
 step_6, photo_6):
+
     activity_description= {"overview": {
                                     "Overview": overview, 
                                     "photo": overview_pic
@@ -221,7 +222,7 @@ def get_and_edit_activity(activity_id, activity_name, min_age, max_age, min_cost
 overview, overview_pic, step_1, photo_1, step_2, photo_2, step_3, photo_3, step_4, photo_4, step_5, photo_5,
 step_6, photo_6):
 
-    activity = crud.get_activity_by_id(activity_id)
+    activity = get_activity_by_id(activity_id)
 
     if activity_name:
         activity.activity_name= activity_name 
@@ -268,19 +269,6 @@ step_6, photo_6):
     if effort_rating: 
         activity.effort_rating = effort_rating
 
-    if interests:
-
-        interest_list=Interest.query.filter(Interest.interest_name.in_([interests])).all()
-        activity.interests = interest_list
-            
-    if materials:
-        material_list=Material.query.filter(Material.material_name.in_([materials])).all()
-        activity.materials=material_list
-
-    if time_periods:
-        time_period_list=TimePeriod.query.filter(TimePeriod.time_period_name.in_([time_periods])).all()
-        activity.time_periods=time_period_list
-        
     db.session.commit()
     
     return activity
@@ -296,10 +284,6 @@ def get_avg_star_rating(activity_id):
     else:
         avg_rating=0
     
-    print("*******************************")
-    print("avg_rating")
-
-
     return avg_rating
 
 def get_rating_count(activity_id):
@@ -314,6 +298,18 @@ def get_recent_activities():
     recent_activities=Activity.query.order_by(desc(Activity.timestamp)).limit(3).all()
 
     return recent_activities
+
+def is_fav(user_id,activity_id):
+
+    user=User.query.get(user_id)
+    activity=Activity.query.get(activity_id)
+
+    for activity in user.activities:
+        if activity.activity_id:
+            return True
+        else:
+            return False
+
 
 ####################################################################################################
 

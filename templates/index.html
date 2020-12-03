@@ -3,6 +3,17 @@
 
 {% block body%}
 <body id="main">
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+      {% for message in messages %}
+          <div class="alert alert-warning" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          {{ message }}
+          </div>
+      {% endfor %}
+  {% endif %}
+  {% endwith %}
+
   <div class="container" id="search-container"> 
     <h2>Search for Activities</h2>
     <p>Welcome back, {{ name }}!</p>
@@ -10,11 +21,11 @@
       <div class="col-11">
         <form action='/basic_search'>
           <input type="text" class="form-control" name="basic_search">
-        </div>
-        <div class="col-auto">
-      <input class="btn btn-info" type="submit" value="Search">
-    </form>
-    </div>
+      </div>
+      <div class="col-auto">
+        <input class="btn btn-info" type="submit" value="Search">
+        </form>
+      </div>
     </div>
   </div>
 
@@ -24,24 +35,20 @@
   <div class="card-columns">
     {% for activity in activities %}
   <div class="card">
-     <div class='card-header center'>
-     <a  href="{{url_for('show_activity', activity_id = activity.activity_id)}}">{{activity.activity_name}}</a>
-     </div>
+    <div class='card-header center'>
+      <a  href="{{url_for('show_activity', activity_id = activity.activity_id)}}">{{activity.activity_name}}</a>
+    </div>
     <div class="card-body">
       <img class='card-img-center' src="{{activity.activity_description['overview']['photo']}}"><br><br>
       <small class="form-text text-muted float-right align-bottom">
         Added on {{activity.timestamp.strftime('%m-%d-%Y')}}
       </small>
     </div>
-      </div>
- 
-    {% endfor %}
- </div>
-
-    </div>
   </div>
-
-
+    {% endfor %}
+  </div>
+</div>
+</div>
 {% endblock %}
 </body>
 

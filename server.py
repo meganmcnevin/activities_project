@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.ext.mutable import Mutable
 from jinja2 import Template
 from settings import app, connect_to_db, db
 from model import  User, Child, UserChild, Interest, Activity, Comment, Material, TimePeriod
@@ -52,27 +53,31 @@ def display_search_page():
 
 @app.route('/filter', methods=['GET', 'POST'])
 def filter_results():
-    datastring = request.get_data()
-    materials = request.args.getlist('materials[]')
-    interests = request.args.getlist('interests[]')
-    time_periods = request.args.getlist('time_periods[]')
-    effort_rating = request.args.getlist('effort_rating[]')
-    min_cost = request.args['min_cost']
-    max_cost = request.args['max_cost']
-    min_age = request.args['min_age']
-    max_age = request.args['max_age']
-    hiddenField = request.args['hiddenField']
 
+    if request.method == 'GET':
+        datastring = request.get_data()
+        materials = request.args.getlist('materials[]')
+        interests = request.args.getlist('interests[]')
+        time_periods = request.args.getlist('time_periods[]')
+        effort_rating = request.args.getlist('effort_rating[]')
+        min_cost = request.form.get('min_cost')
+        max_cost = request.form.get('max_cost')
+        min_age = request.form.get('min_age')
+        max_age = request.form.get('max_age')
+        hiddenField = request.form.get('hiddenField')
+
+        lst=[]
+        activities_query = crud.filter_and_get_activities(datastring, materials, interests, time_periods, effort_rating, min_cost, max_cost, min_age, max_age, hiddenField) 
+
+        for i in activities_query:
+            lst.append({"activity_name": i.activity_name, "activity_description": i.activity_description, "keywords": i.keywords, "activity_id": i.activity_id})
+        
+
+        return jsonify({"activities":lst})
+
+    if request.method == 'POST':
     
-
-    lst=[]
-    activities_query = crud.filter_and_get_activities(datastring, materials, interests, time_periods, effort_rating, min_cost, max_cost, min_age, max_age, hiddenField) 
-
-    for i in activities_query:
-        lst.append({"activity_name": i.activity_name, "activity_description": i.activity_description, "keywords": i.keywords, "activity_id": i.activity_id})
-    
-
-    return jsonify({"activities":lst})
+        return render_template("index.html")
 
 
 ###################################################################################################
@@ -97,6 +102,7 @@ def login():
                 session['username']= user.username
                 session['id'] = user.user_id
                 session['name'] = user.first_name
+                session['photo'] =user.photo
                 
                 return render_template('profile.html', user=user, name=session['name'])
         else:
@@ -177,13 +183,14 @@ def add_child():
             
             user.children.append(add_child)
             db.session.commit()
-
-            return redirect(url_for('profile'))
+            
             flash("Child added")
+            return redirect(url_for('profile'))
+            
     flash('Please login')
     return redirect('/login')
 
-@app.route('/profile/edit', methods=['GET', 'POST'])
+@app.route('/profile_edit', methods=['GET', 'POST'])
 def profile_edit():
 
     user = crud.get_user_by_id(session['id'])
@@ -198,6 +205,7 @@ def profile_edit():
         password = request.form['password']
         zipcode = request.form['zipcode']
 
+
         if last_name:
             user.last_name = last_name
         if email:
@@ -208,12 +216,13 @@ def profile_edit():
             user.zipcode = zipcode
 
         db.session.commit()
-        
-        return redirect(url_for('profile'))
+
         flash("Profile updated successfully!")
+        return redirect(url_for('profile'))
+        
         
     else:
-        return render_template('profile_edit.html', user=user, name=session['name'])
+        return render_template('index.html', user=user, name=session['name'])
 
 @app.route('/edit_child/<child_id>', methods=['GET', 'POST'])
 def edit_child(child_id):
@@ -231,13 +240,19 @@ def edit_child(child_id):
 
         if photo:
             child.photo = photo
+        
         if interests:
-            child.interests= interests
+            for interest_id in interests:
+                if interest_id != None:
+                    interest = Interest.query.get(interest_id)
+                    child.interests.append(interest)
+                
 
         db.session.commit()
         
-        return redirect(url_for('profile'))
         flash("Child profile updated successfully!")
+        return redirect(url_for('profile'))
+        
         
     else:
         return render_template('profile.html', user=user, name=session['name'])
@@ -248,11 +263,15 @@ def edit_child(child_id):
 def show_activity(activity_id):
     """Show details on a particular activity."""
 
+    user_id=session['id']
+
     activity = crud.get_activity_by_id(activity_id)
     avg_rating = crud.get_avg_star_rating(activity_id)
     rating_count = crud.get_rating_count(activity_id)
 
-    return render_template('activity.html', activity=activity, avg_rating=avg_rating, rating_count=rating_count)
+    is_fav=crud.is_fav(user_id,activity_id)
+
+    return render_template('activity.html', activity=activity, avg_rating=avg_rating, rating_count=rating_count, user=session['id'], is_fav=is_fav)
 
 
 
@@ -308,7 +327,7 @@ def suggest_activities():
 
     personal_activity=crud.get_activity_age_interest(child_id)
 
-    return render_template("suggested_activities.html", personal_activity=personal_activity)
+    return render_template("suggested_activities.html", personal_activity=personal_activity, user=session['id'])
 
 
 
@@ -357,13 +376,10 @@ def add_activity():
         time_periods = request.form.getlist('time_periods[]')
 
         
-        activity_description=crud.create_activity_description(activity_name, min_age, max_age, min_cost, max_cost, location, effort_rating, keywords,
-        overview, overview_pic, step_1, photo_1, step_2, photo_2, step_3, photo_3, step_4, photo_4, step_5, photo_5,
-        step_6, photo_6)
+        activity_description=crud.create_activity_description(activity_name,overview, overview_pic, step_1, photo_1, step_2, photo_2, step_3, photo_3, step_4, photo_4, step_5, photo_5, step_6, photo_6)
 
         
-        activity = crud.create_activity(activity_name, min_age, max_age, min_cost, max_cost, location,
-                    effort_rating, keywords, activity_description)
+        activity = crud.create_activity(activity_name, min_age, max_age, min_cost, max_cost, location, effort_rating, keywords, activity_description)
         db.session.add(activity)
         db.session.commit()
 
@@ -390,15 +406,16 @@ def add_activity():
         
         db.session.commit()
 
-        return redirect(url_for('add_activity'))
         flash("Activity added")
+        return redirect(url_for('add_activity'))
+        
     else: 
         return redirect('/login')
 
 
 
 
-@app.route('/activity/edit_activity/<activity_id>' , methods = ['GET','POST'])
+@app.route('/edit_activity/<activity_id>' , methods = ['GET','POST'])
 def edit_activity(activity_id):
     """Edit an existing Activity"""
 
@@ -440,7 +457,79 @@ def edit_activity(activity_id):
         interests = request.form.getlist('interests[]')
         time_periods = request.form.getlist('time_periods[]')
 
-        activity = crud.get_and_edit_activity(activity_id, activity_name, min_age, max_age, min_cost, max_cost, location, effort_rating, keywords, overview, overview_pic, step_1, photo_1, step_2, photo_2, step_3, photo_3, step_4, photo_4, step_5, photo_5, step_6, photo_6)
+        print("**********************************************************************")
+        print(activity_id, activity_name, min_age, max_age, min_cost, max_cost, location, effort_rating, keywords, overview, overview_pic, step_1, photo_1, step_2, photo_2, step_3, photo_3, step_4, photo_4, step_5, photo_5, step_6, photo_6)
+        print("**********************************************************************")
+
+        if activity_name:
+            activity.activity_name= activity_name 
+        if overview:
+            print("**********************************")
+            print(overview)
+            print("**********************************")
+            activity.activity_description['overview']['Overview'] = overview
+        if overview_pic:
+            activity.activity_description['overview']['Overview'] = overview_pic 
+        if step_1: 
+            activity.activity_description['step_1']['Step 1'] = step_1 
+        if photo_1: 
+            activity.activity_description['step_1']['photo'] = photo_1
+        if step_2: 
+            activity.activity_description['step_2']['Step 2'] = step_2 
+        if photo_2: 
+            activity.activity_description['step_2']['photo'] = photo_2
+        if step_3: 
+            activity.activity_description['step_3']['Step 3'] = step_3 
+        if photo_3: 
+            activity.activity_description['step_3']['photo'] = photo_3
+        if step_4: 
+            activity.activity_description['step_4']['Step 4'] = step_4 
+        if photo_4: 
+            activity.activity_description['step_4']['photo'] = photo_4 
+        if step_5: 
+            activity.activity_description['step_5']['Step 5'] = step_5 
+        if photo_5: 
+            activity.activity_description['step_5']['photo'] = photo_5 
+        if step_6: 
+            activity.activity_description['step_6']['Step 6'] = step_6 
+        if photo_6: 
+            activity.activity_description['step_6']['photo'] = photo_6 
+        if keywords: 
+            activity.keywords = keywords 
+        if location: 
+            activity.location = location 
+        if min_cost: 
+            activity.min_cost = min_cost
+        if max_cost: 
+            activity.max_cost = max_cost
+        if min_age: 
+            activity.min_age = min_age
+        if max_age: 
+            activity.max_age = max_age
+        if effort_rating: 
+            activity.effort_rating = effort_rating
+
+        db.session.commit()
+
+        if interests:
+            interest_list=[]
+            for interest in interests:
+                interest_list.append(int(interest))
+            activity.interests = interest_list
+                
+        if materials:
+            material_list=[]
+            for material in materials:
+                material_list.append(int(material))
+            activity.materials=material_list
+
+        if time_periods:
+            time_period_list=[]
+            for time_period in time_periods:
+                time_period_list.append(int(time_period))
+            activity.time_periods=time_period_list
+
+        db.session.commit()
 
         flash("Activity edited")
         return redirect(url_for('show_activity', activity_id=activity_id))
