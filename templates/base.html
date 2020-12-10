@@ -29,11 +29,12 @@
       <div class="navbar-nav">
         <a href="{{url_for('index')}}" class="nav-item nav-link active">Home</a>
         <a href="{{url_for('about')}}" class="nav-item nav-link">About</a>
-      {% if session['loggedin'] %}
+      
       </div>
+      {% if session['loggedin'] %}
       <div class="navbar-nav ml-auto text-right">
         <div class="nav-item dropdown">
-          <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><img class="profile-img" src="{{user.photo}}"> {{user.username}} <b class="caret"></b></a>
+          <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><img class="profile-img-nav" src="{{session['photo']}}"> {{session['username']}} <b class="caret"></b></a>
           <div class="dropdown-menu">
             <a href="{{url_for('profile')}}" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a></a>
             <div class="dropdown-divider"></div>

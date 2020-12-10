@@ -49,14 +49,17 @@ $("#myform").on('submit', (evt) => {
 });
   
 function submitForm() {
-  var form = document.myform; 
+  var form = document.getElementById('myform')
   var dataString = $(form).serialize(); 
+  
     
     $.get('/filter', dataString, (response) =>{
 
+
+
       var names = []; 
       $.each(response.activities, function(idx, val) {
-          names.push("<div class='search-card mb-3'><div class='row no-gutters'><div class='col-md-3'><img class='card-img' src=" + val.activity_description['overview']['photo'] + "></div>" +"<div class='col-md-9'> <div class='card-header'><a href="+ "/activity/"+ val.activity_id + "><h5>" + val.activity_name + "</h5></a></div><h5 class='card-title'></h5><p class='card-text'>" + val.activity_description['overview']['Overview'] +  val.keywords +"</p></div></div></div></div>" );
+          names.push("<div class='search-card mb-3'><div class='row no-gutters'><div class='col-md-3'><img class='card-img' src=" + val.activity_description['overview']['photo'] + "></div>" +"<div class='col-md-9'> <div class='card-header'><a href="+ "/activity/"+ val.activity_id + "><h5>" + val.activity_name + "</h5></a></div><h5 class='card-title'></h5>" + val.activity_description['overview']['Overview'] +"</div></div></div></div>" );
           
           console.log(names); 
           
@@ -117,24 +120,45 @@ $(document).ready(function() {
   });
 });
 
-
+$(document).ready(function() {
+  $('#location').multiselect({
+      enableFiltering: true,
+      filterBehavior: 'text',
+      checkboxName: function (option) {
+        return 'location[]';
+      }
+  });
+});
 /* FAVORITE ANIMATION  */
 
-$(document).ready(function(){
-  $("#heart").click(function(){
-    if($("#heart").hasClass("liked")){
-      $("#heart").removeClass("liked");
-    }else{
+let fav = document.getElementById('heart');
+
+if (fav.value === "1") {
+  $("#heart").addClass("liked");
+}
+if (fav.value === "0") {
+  $("#heart").removeClass("liked");
+}
+
+$('#heart').on('click', (evt) => {
+	evt.preventDefault();
+
+  let activity_id = evt.currentTarget.name;
+  
+  if (fav.value === "0") {
+	  $.post('/activity/add_favorite/' + activity_id, () =>{
+      $('#heart').val("1");
       $("#heart").addClass("liked");
-    }
   });
+  }
+  
+  else {
+    $.post('/activity/remove_favorite/' + activity_id, () =>{
+      $('#heart').val("0");
+      $("#heart").removeClass("liked");
+      
+    });
+  };
 });
 
 
-
-
-// $(document).ready(function() {
-//   if ($(activity in user.activities;
-//   $("#heart").addClass("liked");
-
-// })

@@ -18,12 +18,9 @@
         <div class="col-md-4">
             <div class="profile-img">
                 <img src="{{user.photo}}"><br><br><br>
-                <div class="file btn btn-sm btn-primary">
-                    <form method="post">
-                    Change Photo
-                    <input type="file" name="file"/>
-                    </form>
-                </div>
+                <button type="button" class="file btn btn-sm btn-primary" data-toggle="modal" data-target="#photoModal">
+                    Change Avatar
+                </button>
             <div class="row">
                 <div class="col-md-10">
                     <div class="profile-activities">
@@ -65,10 +62,16 @@
                                                 <li>{{l.interest_name}}</li>
                                                 {% endfor %}</p>
                                             <br>
-                                            <form action='/suggest_activities'>
+                                            <div class="form-row">
+                                                <div class="col-md-6 mb-3">
+                                                    <form action='/suggest_activities'>
                                                 <button class="btn btn-outline-secondary btn-sm" name="personal_activity" value={{i.child_id}}>Suggest Activities for {{i.child_name}}</button>
                                             </form>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
                                                 <a class="btn btn-outline-secondary btn-sm" href="{{url_for('edit_child', child_id=i.child_id)}}" name="edit_child" value={{i.child_id}}>Edit {{i.child_name}}'s Profile</a>
+                                            </div>
+                                            </div>
                             </div>  
                         </div>
                     </div>
@@ -137,6 +140,87 @@
     </div>
 </div>
 
+<div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Change Your Avatar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <div class="modal-body">
+            <form action='/change_photo' method='post' >
+                <h6>Select an Avatar:</h6><br>
+                    <div class='form-check'>
+                        <div class="form-check form-check-inline">
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/woman1.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/woman1.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/woman2.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/woman2.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/woman3.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/woman3.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/woman4.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/woman4.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/woman5.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/woman5.png"></br>
+                            </div>   
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/woman6.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/woman6.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/woman7.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/woman7.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/woman8.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/woman8.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/woman9.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/woman9.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/woman10.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/woman10.png"></br>
+                            </div>
+                        </div>
+                            <div class="form-check form-check-inline">
+                                <div class="card-av" style="width: 5rem;">
+                                    <img class="card-img-top-av" src="/static/img/woman11.png">
+                                    <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/woman11.png"></br>
+                                </div>
+                                <div class="card-av" style="width: 5rem;">
+                                    <img class="card-img-top-av" src="/static/img/woman5.png">
+                                    <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/woman5.png"></br>
+                                </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/woman13.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/woman13.png"></br>
+                            </div>
+                            </div>
+                        </div>
+                    </div><br>
+                <input class="btn btn-light" type='submit'>
+            </form>
+        </div>  
+        <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
 
 <div class="modal fade" id="childModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -159,23 +243,103 @@
                         <label class="form-check-label" >Male</label><br>
                         <input class="form-check-input" type ='radio' name='gender' value='female'>
                         <label class="form-check-label" >Female</label><br>
+                        <input class="form-check-input" type ='radio' name='gender' value='other'>
+                        <label class="form-check-label" >Prefer not to say</label><br>
                         <br>
                     </div>
-                <h6>Select an Avatar:</h6><br>
+                    <h6>Select an Avatar:</h6><br>
                     <div class='form-check'>
-                        <img class='avatar' src='https://img.freepik.com/free-vector/pink-abstract-background_1077-11.jpg'>
-                        <input class="form-check-input" type ='radio' name='photo' value='https://img.freepik.com/free-vector/pink-abstract-background_1077-11.jpg'> Pink </br>
-                        <img class='avatar' src='https://image.freepik.com/free-vector/light-blue-abstract-background_1077-3.jpg'>
-                        <input class="form-check-input" type ='radio' name='photo' value='https://image.freepik.com/free-vector/light-blue-abstract-background_1077-3.jpg'> Blue </br>
-                        <img class='avatar' src='https://image.freepik.com/free-vector/orange-abstract-background_1077-2.jpg'>
-                        <input class="form-check-input" type ='radio' name='photo' value='https://image.freepik.com/free-vector/orange-abstract-background_1077-2.jpg'> Orange </br>
-                        <img class='avatar' src='https://image.freepik.com/free-vector/green-abstract-background_1077-9.jpg'>
-                        <input class="form-check-input" type ='radio' name='photo' value='https://image.freepik.com/free-vector/green-abstract-background_1077-9.jpg'> Green </br>
-                        <img class='avatar' src='https://image.freepik.com/free-vector/purple-abstract-background_1077-8.jpg'>
-                        <input class="form-check-input"type ='radio' name='photo' value='https://image.freepik.com/free-vector/purple-abstract-background_1077-8.jpg'> Purple </br>
-                        <img class='avatar' src='https://image.freepik.com/free-vector/bright-colorful-abstract-background_1077-6.jpg'>
-                        <input class="form-check-input"type ='radio' name='photo' value='https://image.freepik.com/free-vector/bright-colorful-abstract-background_1077-6.jpg'> Rainbow </br>
-                    </div><br>
+                        <div class="form-check form-check-inline">
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/girl1.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/girl1.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/girl2.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/girl2.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/girl3.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/girl3.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/girl4.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/girl4.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/girl5.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/girl5.png"></br>
+                            </div>   
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/girl6.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/girl6.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/girl7.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/girl7.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/girl8.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/girl8.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/girl9.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/girl9.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/girl10.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/girl10.png"></br>
+                            </div>
+                            <div class="form-check form-check-inline">
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/girl11.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/girl11.png"></br>
+                            </div>
+                            </div>
+                        </div>
+                            <div class="form-check form-check-inline">
+                                <div class="card-av" style="width: 5rem;">
+                                    <img class="card-img-top-av" src="/static/img/boy1.png">
+                                    <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/boy1.png"></br>
+                                </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/boy2.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/boy2.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/boy3.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/boy3.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/boy4.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/boy4.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/boy5.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/boy5.png"></br>
+                            </div>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <div class="card-av" style="width: 5rem;">
+                                    <img class="card-img-top-av" src="/static/img/boy6.png">
+                                    <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/boy6.png"></br>
+                                </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/boy7.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/boy7.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/boy8.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/boy8.png"></br>
+                            </div>
+                            <div class="card-av" style="width: 5rem;">
+                                <img class="card-img-top-av" src="/static/img/boy9.png">
+                                <input class="form-check-input" type ='radio' name='userphoto' value="/static/img/boy9.png"></br>
+                            </div>
+                            </div>
+                        </div>
                 <h6>Child's Interests:</h6>
                     <div class="form-check">
                         {% for interest in interests %}

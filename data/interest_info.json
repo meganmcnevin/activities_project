@@ -1,12 +1,15 @@
 [
 	{
+		"interest_name": "art"
+	},
+	{
 		"interest_name": "drawing"
 	},
 	{
 		"interest_name": "painting"
 	},
 	{
-		"interest_name": "paper craft"
+		"interest_name": "craft"
 	},
 	{
 		"interest_name": "pottery"
@@ -39,7 +42,7 @@
 		"interest_name": "dress up"
 	},
 	{
-		"interest_name": "role play"
+		"interest_name": "imaginative play"
 	},
 	{
 		"interest_name": "puppets"
@@ -63,7 +66,13 @@
 		"interest_name": "magic"
 	},
 	{
+		"interest_name": "games"
+	},
+	{
 		"interest_name": "experiments"
+	},
+	{
+		"interest_name": "sensory play"
 	},
 	{
 		"interest_name": "programming"

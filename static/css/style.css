@@ -1,5 +1,9 @@
 /* PROFILE PAGE STYLES */
 
+p {
+	font-size:13px;
+}
+
 #profile {
 	background-image: url(/static/img/cloud-bg.png); 
 	background: -webkit-linear-gradient(bottom, #BAE5E9, #00c6ff);
@@ -20,6 +24,11 @@ h1 {
 	font-family: 'Handlee', cursive;
 }
 
+#sidebar {
+	margin-left: 15px;
+	font-size: 14px;
+}
+
 .user-profile{
     padding: 3%;
     margin-top: 3%;
@@ -35,7 +44,7 @@ h1 {
     text-align: center;
 }
 .profile-img img{
-    width: 70%;
+    width: 50%;
     height: 100%;
 }
 .profile-img .file {
@@ -167,6 +176,8 @@ input:checked + .star:before {
 	-webkit-appearance: none;
 }
 
+
+
 .activity-title {
 	text-align: center;
 }
@@ -182,8 +193,8 @@ input:checked + .star:before {
 }
 
 #featured-container {
-	margin-top: 70px; 
-	padding-top: 70px; 
+	margin-top: 50px; 
+	padding-top: 50px; 
 	padding-bottom: 100px;
     padding: 2rem 2rem 2rem 2rem;
     background-color: #fff;
@@ -245,6 +256,31 @@ input:checked + .star:before {
 	
 }
 
+.card-img, .card-img-bottom, .card-img-top {
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+	
+	width: 100%;
+    height: 15vw;
+    object-fit: cover;
+	
+}
+
+.card-img, .card-img-top {
+    border-top-left-radius: calc(.25rem - 1px);
+    border-top-right-radius: calc(.25rem - 1px)
+}
+
+.card-img, .card-img-bottom {
+    border-bottom-right-radius: calc(.25rem - 1px);
+    border-bottom-left-radius: calc(.25rem - 1px)
+}
+
+.card-deck .card {
+    margin: 15px 15px 15px 15px;
+    
+}
+
 .card {
     position: relative;
     display: -ms-flexbox;
@@ -255,25 +291,33 @@ input:checked + .star:before {
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
-    border: 1px solid rgba(73, 73, 73, 0.125);
-	border-radius: 1rem; 
-	padding: 1rem 1rem;
-	padding-bottom: 20px; 
-	margin: 20px 20px 20px 20px;
+	border: 1px solid rgba(0, 0, 0, .125)
+}
 
+.card-av {
+	position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+	
 }
 
 .card-body {
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
-	padding: 1rem 1rem;
-	margin: 20px 20px 20px 20px;
+	
 	
 }
 
 .card-title {
 	margin-bottom: .75rem;
-	margin: 10px 10px 10px 10px;
+	text-align: center;
+	
 	
 }
 
@@ -286,10 +330,15 @@ input:checked + .star:before {
 
 
 .kid-card-img {
-    width: 95%;
-	margin: 10px 0px 10px -10px ;
-	border-radius: 50%;
+    width: 70%;
+	margin: 10px 10px 10px 10px ;
+
 	
+}
+
+.btn-primary-outline {
+	background-color: transparent;
+	border-color: #ccc;
 }
 
 .avatar {
@@ -301,10 +350,38 @@ input:checked + .star:before {
 }
 
 .card-img {
-    width: 100%;
+
+	object-fit: contain;
+	padding: 10px 10px 10px 10px;
+	margin: 10px 30px 20px -10px ;
+	border-radius: 15%;
 	
-	margin: 10px 0px 10px -10px ;
-	
+}
+
+.card-img-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1.25rem;
+    border-radius: calc(.25rem - 1px)
+}
+
+.card-img, .card-img-bottom, .card-img-top {
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    width: 100%
+}
+
+.card-img, .card-img-top {
+    border-top-left-radius: calc(.25rem - 1px);
+    border-top-right-radius: calc(.25rem - 1px)
+}
+
+.card-img, .card-img-bottom {
+    border-bottom-right-radius: calc(.25rem - 1px);
+    border-bottom-left-radius: calc(.25rem - 1px) */
 }
 
 .edit-img{
@@ -318,7 +395,7 @@ input:checked + .star:before {
 }
 
 .activity-image {
-	max-width: 300px; 
+	max-height: 400px;
 	display: block;
   	margin-left: auto;
   	margin-right: auto;
@@ -339,11 +416,15 @@ input:checked + .star:before {
 }
 .nav-link img {
 	border-radius: 50%;
-	width: 36px;
-	height: 36px;
+	width: auto;
+	height: 40px;
 	margin: -8px 0;
 	float: left;
 	margin-right: 10px;
+}
+
+.card-img-top-av {
+	max-width:60px; 
 }
 .navbar .navbar-brand {
 	color: #555;
@@ -362,7 +443,7 @@ input:checked + .star:before {
 	
   }
 
-  .liked#heart:before, .liked#heart:after  {
+  .liked  {
 	color: red;
 	cursor: pointer;
   }
@@ -372,12 +453,11 @@ input:checked + .star:before {
 	cursor: pointer;
   }
 
-  #heart {
+  #no_heart {
 	color: white;
 	cursor: pointer;
   }
   
- 
   
 
 .navbar .nav-item i {
@@ -471,3 +551,4 @@ footer:before {
 	width:100%; 
 	height:200px; 
 	background-size:cover;}
+

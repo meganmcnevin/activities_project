@@ -1,6 +1,7 @@
 from settings import db
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import joinedload,backref
+from sqlalchemy_json import mutable_json_type
 from datetime import datetime
 import json
 import pprint
@@ -23,7 +24,7 @@ class Activity(db.Model):
     location = db.Column(db.String())
     effort_rating = db.Column(db.String())
     keywords = db.Column(db.String())
-    activity_description = db.Column(db.JSON())
+    activity_description = db.Column(mutable_json_type(dbtype=db.JSON, nested=True))
     timestamp = db.Column(
         db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
     )
@@ -291,6 +292,9 @@ class UserActivity(db.Model):
 
     activities = db.relationship(Activity, backref=backref("users_assoc"))
     users= db.relationship(User, backref=backref("activities_assoc"))
+
+    def __repr__(self):
+        return f'<UserActivity id={self.user_activity_id} user_id ={self.user_id} activity_id = {self.activity_id}>'
 
 
 class ActivityComment(db.Model):

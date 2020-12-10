@@ -13,13 +13,14 @@
         {% endfor %}
     {% endif %}
 {% endwith %}
+
 <div class="container user-profile">
 <div class="row">
-    <div class="col-2 offset-10">
+    <div class="col-2 offset-11">
         {% if session['loggedin']%}
-        <form action='/activity/add_favorite/{{activity.activity_id}}' id="fav" method='post'>
-            <button type="submit" class="btn btn-primary btn-rounded btn-sm float-right">Favorite<i class="fas fa-heart ml-2 {% if is_fav %} liked {% endif %}" id="heart" aria-hidden="true"></i></button>
-        </form>
+        <!-- <form action='/activity/add_favorite/{{activity.activity_id}}' id="fav" method='post'> -->
+            <button type="button" class="fas fa-heart ml-2 btn btn-primary-outline " id="heart" value={{is_fav}} name= {{activity.activity_id}} aria-hidden="true"></button>
+        <!-- </form> -->
         {% endif %}
     </div>
     </div>

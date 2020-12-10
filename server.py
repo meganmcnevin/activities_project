@@ -27,14 +27,15 @@ def about():
 
     return render_template("about.html")
 
-@app.route('/basic_search')
+@app.route('/basic_search', methods=['GET'])
 def search_results():
 
-    basic_search = request.args['basic_search']
+    if request.method == "GET":
+        basic_search = request.args['basic_search']
 
-    materials=Material.query.all()
-    interests=Interest.query.all()
-    time_periods=TimePeriod.query.all()
+        materials=Material.query.all()
+        interests=Interest.query.all()
+        time_periods=TimePeriod.query.all()
 
     return render_template("advanced_search.html", basic_search=basic_search, materials=materials, interests=interests, time_periods=time_periods)
 
@@ -55,24 +56,104 @@ def display_search_page():
 def filter_results():
 
     if request.method == 'GET':
-        datastring = request.get_data()
+        datastring = request.args
         materials = request.args.getlist('materials[]')
         interests = request.args.getlist('interests[]')
         time_periods = request.args.getlist('time_periods[]')
         effort_rating = request.args.getlist('effort_rating[]')
-        min_cost = request.form.get('min_cost')
-        max_cost = request.form.get('max_cost')
-        min_age = request.form.get('min_age')
-        max_age = request.form.get('max_age')
-        hiddenField = request.form.get('hiddenField')
+        star_rating=request.args.getlist('rating')
+        min_cost = request.args.get('min_cost')
+        max_cost = request.args.get('max_cost')
+        min_age = request.args.get('min_age')
+        max_age = request.args.get('max_age')
+        location=request.args.getlist('location[]')
+        hiddenField = request.args.get('hiddenField')
 
         lst=[]
-        activities_query = crud.filter_and_get_activities(datastring, materials, interests, time_periods, effort_rating, min_cost, max_cost, min_age, max_age, hiddenField) 
+        activities_query = db.session.query(Activity)
+
+        if hiddenField:
+            activities_query = activities_query.filter(Activity.keywords.contains(hiddenField))
+            
+
+        if effort_rating:
+            activities_query = (
+                activities_query.filter(Activity.effort_rating.in_(effort_rating))
+            )
+        
+        if min_cost:
+            activities_query = (
+                activities_query.filter(Activity.min_cost <= min_cost)
+            )
+        if max_cost:
+            activities_query = (
+                activities_query.filter(Activity.max_cost <= max_cost)
+            )
+
+        if min_age:
+            activities_query = (
+                activities_query.filter(Activity.min_age <= min_age)
+            )
+        if max_age: 
+            activities_query = (
+                activities_query.filter(Activity.max_age >= max_age)
+            )
+
+        if location:
+            activities_query = (
+                activities_query.filter(Activity.location.in_(location))
+            )
+
+        # if rating:
+        #     activities_query = (
+        #         activities_query
+        #         .join("activities_comments","comments")
+        #         .filter((func.avg(Comment.star_rating)) >= (rating))
+        #     )
+            
+            
+            
+            
+    #         avg_rating=db.session.query(func.avg(Comment.star_rating)).join("activities_comments","activities").filter(Activity.activity_id == activity_id)
+    # avg_rating=avg_rating.scalar()
+    
+    # if avg_rating != None: 
+    #     avg_rating=float(avg_rating)
+    # else:
+    #     avg_rating=0
+    
+    # return avg_rating
+
+
+
+
+
+
+
+
+        if materials:
+            activities_query = (
+                activities_query
+                    .join("activities_materials", "materials")
+                    .filter(Material.material_id.in_(materials))
+            )
+        if interests:
+            activities_query=(
+                activities_query
+                .join("activities_interests","interests")
+                .filter(Interest.interest_id.in_(interests))
+            )
+        if time_periods:
+            activities_query = (
+                activities_query
+                .join("activities_time_periods","time_periods")
+                .filter(TimePeriod.time_period_id.in_(time_periods))
+            )       
+        
 
         for i in activities_query:
             lst.append({"activity_name": i.activity_name, "activity_description": i.activity_description, "keywords": i.keywords, "activity_id": i.activity_id})
         
-
         return jsonify({"activities":lst})
 
     if request.method == 'POST':
@@ -94,19 +175,22 @@ def login():
         password = request.form['password']
 
         user=db.session.query(User).filter_by(email=email).first()
-        
-        if user.email == email:
-            if password == user.password:
-                session['loggedin'] = True
-                session['email']= user.email
-                session['username']= user.username
-                session['id'] = user.user_id
-                session['name'] = user.first_name
-                session['photo'] =user.photo
+
+        if user != None:        
+            if user.email == email:
+                if password == user.password:
+                    session['loggedin'] = True
+                    session['email']= user.email
+                    session['username']= user.username
+                    session['id'] = user.user_id
+                    session['name'] = user.first_name
+                    session['photo'] =user.photo
+                    
+                    return render_template('profile.html', user=user, name=session['name'])
                 
-                return render_template('profile.html', user=user, name=session['name'])
         else:
-            return 'Incorrect username/password'
+            flash ("Incorrect username/password")
+            return render_template("index.html")
     
     return redirect('/')
 
@@ -125,12 +209,33 @@ def profile():
     # If user is not logged in redirect to login page
     return render_template('/')
 
+@app.route('/change_photo', methods=['GET', 'POST'])
+def change_photo():
+
+    user = crud.get_user_by_id(session['id'])
+
+    if request.method == 'GET':
+        return render_template('profile.html')
+
+    if request.method == "POST":
+        photo= request.form['userphoto']
+
+        if photo:
+            user.photo = photo
+            db.session.commit()
+
+            session['photo'] = user.photo
+
+        flash("Avatar changed")
+        return redirect(url_for('profile'))
+
 @app.route('/logout')
 def logout():
     session.pop('loggedin', None)
     session.pop('email', None)
     session.pop('id', None)
     session.pop('name', None)
+    session.pop('photo', None)
 
 # Redirect to login page
     return redirect('/')
@@ -151,6 +256,7 @@ def register():
         email=request.form['email']
         password = request.form['password']
         zipcode = request.form['zipcode']
+        
 
         user = crud.create_user(first_name,last_name, email, username, password, zipcode)
 
@@ -171,7 +277,7 @@ def add_child():
             birthdate=request.form['birthdate']
             gender = request.form['gender']
             interests = request.form.getlist('interests[]')
-            photo = request.form['photo']
+            photo = request.form.get('child_photo')
             
             add_child = crud.create_child(child_name,birthdate,gender, photo)
             
@@ -206,6 +312,7 @@ def profile_edit():
         zipcode = request.form['zipcode']
 
 
+
         if last_name:
             user.last_name = last_name
         if email:
@@ -214,6 +321,7 @@ def profile_edit():
             user.password = password
         if zipcode:
             user.zipcode = zipcode
+
 
         db.session.commit()
 
@@ -229,13 +337,14 @@ def edit_child(child_id):
 
     child= crud.get_child_by_id(child_id)
     interests=Interest.query.all()
+    
 
     if request.method == 'GET':
         return render_template('edit_child.html', child=child, interests=interests)
 
     if request.method == 'POST':
         
-        photo=request.form['photo']
+        photo=request.form.get("child_photo")
         interests= request.form.getlist('interests[]')
 
         if photo:
@@ -262,16 +371,21 @@ def edit_child(child_id):
 @app.route('/activity/<activity_id>')
 def show_activity(activity_id):
     """Show details on a particular activity."""
-
-    user_id=session['id']
-
+    
     activity = crud.get_activity_by_id(activity_id)
+    activity_id=activity.activity_id
+    
     avg_rating = crud.get_avg_star_rating(activity_id)
     rating_count = crud.get_rating_count(activity_id)
+    
 
-    is_fav=crud.is_fav(user_id,activity_id)
-
-    return render_template('activity.html', activity=activity, avg_rating=avg_rating, rating_count=rating_count, user=session['id'], is_fav=is_fav)
+    if 'loggedin' in session:
+        user_id=session['id']
+        is_fav = crud.is_fav(user_id, activity_id)
+        return render_template('activity.html', activity=activity, avg_rating=avg_rating, rating_count=rating_count, user=session['id'], is_fav=is_fav)
+    
+    else:
+        return render_template('activity.html', activity=activity, avg_rating=avg_rating, rating_count=rating_count)
 
 
 
@@ -280,6 +394,7 @@ def add_comment(activity_id):
 
     activity = crud.get_activity_by_id(activity_id)
     user = crud.get_user_by_id(session['id'])
+    
     
     if request.method == 'GET':
         return render_template('activity.html', activity=activity)
@@ -307,9 +422,13 @@ def fav_activity(activity_id):
 
     activity = crud.get_activity_by_id(activity_id)
     user = crud.get_user_by_id(session['id'])
+    user_id=user.user_id
+    activity_id=activity.activity_id
+
+    is_fav = crud.is_fav(user_id, activity_id)
     
     if request.method == 'GET':
-        return render_template('activity.html', activity=activity)
+        return render_template('activity.html', activity=activity,  is_fav=is_fav)
 
     if request.method == 'POST':
         
@@ -317,9 +436,29 @@ def fav_activity(activity_id):
         db.session.commit()
 
         flash("Favorite added")
-        return redirect(url_for('fav_activity', activity_id = activity_id))
+        return redirect(url_for('show_activity', activity_id = activity_id))
 
+@app.route('/activity/remove_favorite/<activity_id>' , methods = ['GET','POST'])
+def unfav_activity(activity_id):
 
+    activity = crud.get_activity_by_id(activity_id)
+    user = crud.get_user_by_id(session['id'])
+    user_id=user.user_id
+    activity_id=activity.activity_id
+
+    is_fav = crud.is_fav(user_id, activity_id)
+    
+    
+    if request.method == 'GET':
+        return render_template('activity.html', activity=activity, is_fav=is_fav)
+
+    if request.method == 'POST':
+        
+        user.activities.remove(activity)
+        db.session.commit()
+
+        flash("Favorite removed")
+        return redirect(url_for('show_activity', activity_id = activity_id))
 
 @app.route('/suggest_activities')
 def suggest_activities():
@@ -457,16 +596,10 @@ def edit_activity(activity_id):
         interests = request.form.getlist('interests[]')
         time_periods = request.form.getlist('time_periods[]')
 
-        print("**********************************************************************")
-        print(activity_id, activity_name, min_age, max_age, min_cost, max_cost, location, effort_rating, keywords, overview, overview_pic, step_1, photo_1, step_2, photo_2, step_3, photo_3, step_4, photo_4, step_5, photo_5, step_6, photo_6)
-        print("**********************************************************************")
 
         if activity_name:
             activity.activity_name= activity_name 
         if overview:
-            print("**********************************")
-            print(overview)
-            print("**********************************")
             activity.activity_description['overview']['Overview'] = overview
         if overview_pic:
             activity.activity_description['overview']['Overview'] = overview_pic 
@@ -511,23 +644,48 @@ def edit_activity(activity_id):
 
         db.session.commit()
 
+
         if interests:
             interest_list=[]
-            for interest in interests:
-                interest_list.append(int(interest))
+            for interest_id in interests:
+                if interest_id != None:
+                    interest = Interest.query.get(interest_id)
+                    interest_list.append(interest)
             activity.interests = interest_list
-                
+            
         if materials:
             material_list=[]
-            for material in materials:
-                material_list.append(int(material))
+            for material_id in materials:
+                if material_id  != None:
+                    material = Material.query.get(material_id)
+                    material_list.append(material)
             activity.materials=material_list
-
+        
         if time_periods:
             time_period_list=[]
-            for time_period in time_periods:
-                time_period_list.append(int(time_period))
+            for time_period_id in time_periods:
+                if time_period_id != None:
+                    time_period = TimePeriod.query.get(time_period_id)
+                    time_period_list.append(time_period)
             activity.time_periods=time_period_list
+        
+        # if interests:
+        #     interest_list=[]
+        #     for interest in interests:
+        #         interest_list.append(int(interest))
+        #     activity.interests = interest_list
+                
+        # if materials:
+        #     material_list=[]
+        #     for material in materials:
+        #         material_list.append(int(material))
+        #     activity.materials=material_list
+
+        # if time_periods:
+        #     time_period_list=[]
+        #     for time_period in time_periods:
+        #         time_period_list.append(int(time_period))
+        #     activity.time_periods=time_period_list
 
         db.session.commit()
 

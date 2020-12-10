@@ -230,113 +230,18 @@
 		"material_url": "https://www.target.com/p/lunch-storage-bags-100ct-smartly-8482/-/a-75557229#lnk=sametab"
 	},
 	{
-		"material_name": "newspaper",
-		"material_cost": 2,
-		"material_url": ""
-	},
-	{
 		"material_name": "crepe paper",
 		"material_cost": 2.99,
 		"material_url": "https://www.target.com/p/blue-crepe-streamer-spritz-8482/-/a-15705507#lnk=sametab"
 	},
 	{
-		"material_name": "cardboard rolls",
-		"material_cost": 0,
-		"material_url": ""
-	},
-	{
-		"material_name": "magazines",
-		"material_cost": 0,
-		"material_url": ""
-	},
-	{
-		"material_name": "egg cartons",
-		"material_cost": 0,
-		"material_url": ""
-	},
-	{
-		"material_name": "milk cartons",
-		"material_cost": 0,
-		"material_url": ""
-	},
-	{
-		"material_name": "empty boxes",
-		"material_cost": 0,
-		"material_url": ""
-	},
-	{
 		"material_name": "clean cans & jars",
-		"material_cost": 0,
+		"material_cost": 0.99,
 		"material_url": ""
 	},
 	{
 		"material_name": "small plastic containers",
 		"material_cost": 3.99,
-		"material_url": ""
-	},
-	{
-		"material_name": "bubble wrap",
-		"material_cost": 0,
-		"material_url": ""
-	},
-	{
-		"material_name": "iron",
-		"material_cost": 14.99,
-		"material_url": ""
-	},
-	{
-		"material_name": "leaves",
-		"material_cost": 0,
-		"material_url": ""
-	},
-	{
-		"material_name": "sticks",
-		"material_cost": 0,
-		"material_url": ""
-	},
-	{
-		"material_name": "small rocks",
-		"material_cost": 0,
-		"material_url": ""
-	},
-	{
-		"material_name": "acorns",
-		"material_cost": 0,
-		"material_url": ""
-	},
-	{
-		"material_name": "pine cones",
-		"material_cost": 0,
-		"material_url": ""
-	},
-	{
-		"material_name": "flowers",
-		"material_cost": 0,
-		"material_url": ""
-	},
-	{
-		"material_name": "seeds & seed pods",
-		"material_cost": 0,
-		"material_url": ""
-	},
-	{
-		"material_name": "nuts",
-		"material_cost": 0,
-		"material_url": ""
-	},
-	{
-		"material_name": "newspaper",
-		"material_cost": 0,
-		"material_url": ""
-	},
-	{
-		"material_name": "apron or large shirt",
-		"material_cost": 0,
-		"material_url": ""
-	},
-	{
-		"material_name": "old sheet(s)",
-		"material_cost": 0,
 		"material_url": ""
 	},
 	{
@@ -350,8 +255,53 @@
 		"material_url": "https://www.target.com/p/quart-storage-bags-80ct-up-38-up-8482/-/a-14730756#lnk=sametab"
 	},
 	{
+		"material_name": "pool noodles",
+		"material_cost": 0.99,
+		"material_url": ""
+	},
+	{
+		"material_name": "cornstarch",
+		"material_cost": 1.69,
+		"material_url": "https://www.target.com/p/argo-100-pure-corn-starch-16oz/-/A-14771426#lnk=sametab"
+	},
+	{
+		"material_name": "baking soda",
+		"material_cost": 2.29,
+		"material_url": "https://www.target.com/p/arm-38-hammer-pure-baking-soda-3-5lb/-/A-50259963#lnk=sametab"
+	},
+	{
+		"material_name": "shaving cream",
+		"material_cost": 0.99,
+		"material_url": "https://www.target.com/p/summertime-scented-shaving-foam-10oz-smartly-8482/-/A-75557159#lnk=sametab"
+	},
+	{
+		"material_name": "sand",
+		"material_cost": 0.99,
+		"material_url": ""
+	},
+	{
+		"material_name": "water",
+		"material_cost": 0.01,
+		"material_url": ""
+	},
+	{
 		"material_name": "food coloring",
 		"material_cost": 3.69,
 		"material_url": "https://www.target.com/p/mccormick-4ct-assorted-food-color-and-egg-dye-1oz/-/a-13353207#lnk=sametab"
+	},
+	{
+		"material_name": "ribbon",
+		"material_cost": 5,
+		"material_url": ""
+	},
+	{
+		"material_name": "tape",
+		"material_cost": 3.69,
+		"material_url": "https://www.target.com/p/scotch-3pk-magic-tape-3-4-34-x-350-34/-/A-13356914#lnk=sametab"
+	},
+	{
+		"material_name": "balloons",
+		"material_cost": 1.49,
+		"material_url": "https://www.target.com/p/15ct-color-mix-balloons-spritz-8482/-/A-15434050#lnk=sametab"
 	}
 ]

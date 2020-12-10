@@ -1,4 +1,4 @@
-from model import User, Child, Activity, Material, TimePeriod, Interest, Comment
+from model import User, Child, Activity, UserActivity, Material, TimePeriod, Interest, Comment
 from settings import db, connect_to_db
 from datetime import date, datetime
 import json
@@ -19,11 +19,11 @@ def create_activity(activity_name, min_cost, max_cost, min_age, max_age, locatio
 
     return activity
 
-def create_user(first_name,last_name, email, username, password, zipcode):
+def create_user(first_name,last_name, email, username, password, zipcode, photo="/static/img/woman13.png"):
     """Create and return a new user."""
 
     user = User(first_name=first_name, last_name=last_name, email=email, username=username,  
-                password=password, zipcode=zipcode)
+                password=password, zipcode=zipcode, photo=photo)
 
     db.session.add(user)
     db.session.commit()
@@ -304,11 +304,24 @@ def is_fav(user_id,activity_id):
     user=User.query.get(user_id)
     activity=Activity.query.get(activity_id)
 
-    for activity in user.activities:
-        if activity.activity_id:
-            return True
-        else:
-            return False
+    fav=UserActivity.query.filter((UserActivity.user_id==user_id) & (UserActivity.activity_id==activity_id)).first()
+
+    if fav:
+        return 1
+    else:
+        return 0
+    
+
+def unfav(user_id, activity_id):
+
+    user=User.query.get(user_id)
+    activity=Activity.query.get(activity_id)
+
+    fav=UserActivity.query.filter((UserActivity.user_id==user_id) & (UserActivity.activity_id==activity_id)).first()
+    db.session.delete(fav)
+    db.session.commit()
+
+
 
 
 ####################################################################################################

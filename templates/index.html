@@ -22,7 +22,7 @@
         <form action='/basic_search'>
           <input type="text" class="form-control" name="basic_search">
       </div>
-      <div class="col-auto">
+      <div class="input-group-append">
         <input class="btn btn-info" type="submit" value="Search">
         </form>
       </div>
@@ -35,11 +35,12 @@
   <div class="card-columns">
     {% for activity in activities %}
   <div class="card">
-    <div class='card-header center'>
-      <a  href="{{url_for('show_activity', activity_id = activity.activity_id)}}">{{activity.activity_name}}</a>
+    <img class="card-img-top" src="{{activity.activity_description['overview']['photo']}}"><br><br>
+    <div class='card-title'>
+      <a  href="{{url_for('show_activity', activity_id = activity.activity_id)}}"><h6>{{activity.activity_name}}</h6></a>
     </div>
     <div class="card-body">
-      <img class='card-img-center' src="{{activity.activity_description['overview']['photo']}}"><br><br>
+      
       <small class="form-text text-muted float-right align-bottom">
         Added on {{activity.timestamp.strftime('%m-%d-%Y')}}
       </small>

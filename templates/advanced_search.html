@@ -15,16 +15,40 @@
   <div id="page-container"> 
     <div class="container-fluid">
       <div class="row">
-        <div class="col-3 px-1 position-fixed" id="sidebar">
-          <div class="nav flex-column flex-nowrap vh-100 overflow-auto text-black p-2">
-            <form action ="/filter" id="myform" class="myform" name="myform"><br><br><br>
+        <div class="col-1 ">
+        <div class="col-3  offset-1 position-fixed overflow-auto" id="sidebar">
+          <div class="nav flex-column overflow-auto text-black px-1">
+            <form action ="/filter" id="myform" class="myform" name="myform"><br>
+              <h6>Rating:</h6>
+              <div class = "form-check">
+              <input class="form-check-input" type ='radio' name='rating' value=5 >
+              <label class="form-check-label">&#9733 &#9733 &#9733 &#9733 &#9733</label>
+              </div>
+              <div class = "form-check">
+
+              <input class="form-check-input" type ='radio' name='rating' value=4 >
+              <label class="form-check-label">&#9733 &#9733 &#9733 &#9733</label> 
+            </div>
+            <div class = "form-check">
+              <input class="form-check-input" type ='radio' name='rating' value=3 >    
+              <label class="form-check-label">&#9733 &#9733 &#9733</label>
+            </div>
+            <div class = "form-check">
+              <input class="form-check-input" type ='radio' name='rating' value=2 >    
+              <label class="form-check-label">&#9733 &#9733</label>
+            </div>
+            <div class = "form-check">
+              <input class="form-check-input" type ='radio' name='rating' value=1 >    
+              <label class="form-check-label">&#9733</label>
+            </div>
+              <br>
               <h6>Effort Involved:</h6>
               <select class="custom-select"  id="effort" multiple="multiple" name='effort_rating[]'>
                 <option value="Quick and easy"> Quick and easy</option>
                 <option value="A little involved"> A little involved</option>
                 <option value="Somewhat time intensive"> Somewhat time intensive</option>
                 <option value="Maximum effort required"> Maximum effort required</option>
-              </select><br>  
+              </select><br><br>
               <h6>Age:</h6>
               <input type ='number' name='min_age' class="sliderValue" data-index="0" min='0' max="13"> Minimum Age <br>
               <input type ='number' name='max_age' class="sliderValue" data-index="1" min='0' max="13"> Maximum Age <br>
@@ -33,6 +57,11 @@
                 <input type ='number' name='min_cost' min='0' max="50"> Minimum Cost <br>
                 <input type ='number' name='max_cost' min='0' max="50"> Maximum Cost <br>
               <br>
+              <h6>Location:</h6>
+              <select class="custom-select"  id="location" multiple="multiple" name='location[]'>
+                <option value="indoors">Indoors</option>
+                <option value="outdoors">Outdoors</option>
+              </select><br><br>
               <h6>Materials:</h6>
               <select class="custom-select"  id="material" multiple="multiple" name='materials[]'>
                 {% for material in materials %}
@@ -50,27 +79,32 @@
                   {% for time in time_periods %}
                     <option value={{time.time_period_id}}> {{time.time_period_name}} </option>
                   {% endfor %}
-                </select><br>
-                    <input type="hidden" name="hiddenField" id="hiddenField" value={{basic_search}}><br><br>
+                </select><br><br>
+                    <input type="hidden" name="hiddenField" id="hiddenField" value={{basic_search}}>
                   <input class="btn btn-light" type="submit" id="searchButton" value="Search">
             </form>
           </div>
         </div>
+        </div>
       </div>
     </div>
   <div class="container col-md-8 offset-3" id="search-container"> 
-    <div class="form-group row">
-      <div class="col-sm-11">
+    <div class="form-row">
+      <div class="col-10">
         <form id="mainSearch">
           <input type="text" class="form-control" name= "textSearch" id="textSearch" value={{basic_search}}>
         </div>
+        <div class="input-group-append">
         <button class="btn btn-light"  type="submit" id="changeValue">Search</button> 
-    </form>
+        
+        </div>
+      </form>
     </div>
   </div> 
   <div class="featured-container col-md-8 offset-3" >
     <span id="results"></span>
-  </div>
+
+  </div> 
 </div>
 {% endblock %}
 </body>
